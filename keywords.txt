@@ -1,0 +1,9 @@
+MULTIUART	KEYWORD1
+initialise	KEYWORD2
+CheckRx	KEYWORD2
+CheckTx	KEYWORD2
+ReceiveByte	KEYWORD2
+ReceiveString	KEYWORD2
+TransmitByte	KEYWORD2
+TransmitString	KEYWORD2
+SetBaud	KEYWORD2
