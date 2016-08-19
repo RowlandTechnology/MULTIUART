@@ -1,0 +1,233 @@
+<root>
+<document schema='101' license='50,Dev User,XDKHX7' title='' description='' target='PIC.18F.ECIO-28' >
+	<config data='' clkspd='48000000' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='0' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='0' />
+			<data name='ictrate' value='20000' />
+			<data name='ictmask' value='0' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='3a3af518-e139-4efe-993a-d7ce1846643c' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='' description='' category='' catenable='1' author='' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='panel' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis />
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='Length' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='RxData' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+						<array size='20' />
+					</def>
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='Main' description='' >
+						<command class_type='call' title='Call Component Macro' component='MULTIUART1' macro='Initialise' />
+						<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='Initialise' />
+						<command class_type='loop' title='Loop' type='0' exp='1' >
+							<flowline >
+								<command class_type='delay' title='Delay' exp='2' type='2' />
+								<command class_type='call' title='Call Component Macro' component='MULTIUART1' macro='TransmitString' >
+									<argument exp='0' />
+									<argument exp='&quot;UART 0 Test&quot;' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='MULTIUART1' macro='TransmitString' >
+									<argument exp='1' />
+									<argument exp='&quot;UART 1 Test&quot;' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='MULTIUART1' macro='TransmitString' >
+									<argument exp='2' />
+									<argument exp='&quot;UART 2 Test&quot;' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='MULTIUART1' macro='TransmitString' >
+									<argument exp='3' />
+									<argument exp='&quot;UART 3 Test&quot;' />
+								</command>
+								<command class_type='delay' title='Delay' exp='2' type='2' />
+								<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+									<argument exp='&quot;\n\rUART 0: &quot;' />
+								</command>
+								<command class_type='call' title='Call Macro' component='MULTIUART1' macro='CheckRx' >
+									<return exp='Length' />
+									<argument exp='0' />
+								</command>
+								<command class_type='decision' title='Decision' exp='Length &gt; 0' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Macro' component='MULTIUART1' macro='ReceiveString' >
+											<return exp='RxData' />
+											<argument exp='0' />
+											<argument exp='Length' />
+										</command>
+										<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+											<argument exp='RxData' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+									<argument exp='&quot;\n\rUART 1: &quot;' />
+								</command>
+								<command class_type='call' title='Call Macro' component='MULTIUART1' macro='CheckRx' >
+									<return exp='Length' />
+									<argument exp='1' />
+								</command>
+								<command class_type='decision' title='Decision' exp='Length &gt; 0' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Macro' component='MULTIUART1' macro='ReceiveString' >
+											<return exp='RxData' />
+											<argument exp='1' />
+											<argument exp='Length' />
+										</command>
+										<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+											<argument exp='RxData' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+									<argument exp='&quot;\n\rUART 2: &quot;' />
+								</command>
+								<command class_type='call' title='Call Macro' component='MULTIUART1' macro='CheckRx' >
+									<return exp='Length' />
+									<argument exp='2' />
+								</command>
+								<command class_type='decision' title='Decision' exp='Length &gt; 0' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Macro' component='MULTIUART1' macro='ReceiveString' >
+											<return exp='RxData' />
+											<argument exp='2' />
+											<argument exp='Length' />
+										</command>
+										<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+											<argument exp='RxData' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+									<argument exp='&quot;\n\rUART 3: &quot;' />
+								</command>
+								<command class_type='call' title='Call Macro' component='MULTIUART1' macro='CheckRx' >
+									<return exp='Length' />
+									<argument exp='3' />
+								</command>
+								<command class_type='decision' title='Decision' exp='Length &gt; 0' swap='0' >
+									<flowline >
+										<command class_type='call' title='Call Macro' component='MULTIUART1' macro='ReceiveString' >
+											<return exp='RxData' />
+											<argument exp='3' />
+											<argument exp='Length' />
+										</command>
+										<command class_type='call' title='Call Component Macro' component='USB_Serial1' macro='SendString' >
+											<argument exp='RxData' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='ref' guid='3e28ac22-2855-410a-9660-0b0a4731e545' vmin='4' vmaj='1' codename='USB_Serial1' x='-16' y='32' z='0.755' xsz='60' ysz='26' zsz='1.51' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='vendor_ID' data='4799' />
+					<value target='product_ID' data='61456' />
+					<value target='dev_name' data='Flowcode USB Serial' />
+					<value target='dev_manufacturer' data='Matrix Multimedia Ltd.' />
+					<value target='major_version' data='1' />
+					<value target='minor_version' data='0' />
+					<value target='RETURN' data='000' />
+					<value target='enumeration_tout' data='0' />
+					<value target='timeout' data='10' />
+					<value target='usb_type' data='1' />
+					<value target='TXBUFSZ' data='64' />
+					<value target='RXBUFSZ' data='64' />
+					<value target='driver_directory' data='$(srcdir)' />
+					<value target='driver_filename' data='Flowcode_USB_Serial_Driver' />
+					<value target='gen_driver' data='0' />
+					<value target='COM_port' data='001' />
+					<value target='label' data='USB Serial' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='43861adb-8a59-492d-8f9f-a08775800bc1' vmin='3' vmaj='1' codename='MULTIUART1' x='-16' y='0' z='0.755' xsz='60' ysz='26' zsz='1.51' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='CHANNEL' data='001' />
+					<value target='PR_SCALE' data='004' />
+					<value target='MOSI' data='$PORTC.7' />
+					<value target='MISO' data='$PORTB.0' />
+					<value target='CLK' data='$PORTB.1' />
+					<value target='MosiRemap' data='' />
+					<value target='MisoRemap' data='' />
+					<value target='ClkRemap' data='' />
+					<value target='CS' data='$PORTB.2' />
+					<value target='label' data='MULTIUART' />
+					<value target='ScopeTraces' data='0' />
+					<value target='ConsoleData' data='0' />
+					<value target='Injector' data='000' />
+					<value target='InjectorHandle' data='0' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='-20' ye='20' ze='95.8977' xt='-20' yt='20' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7360576' img='' style='0' size='25' />
+		<camera xe='0' ye='0' ze='300' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel3d>
+	<layout >
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>

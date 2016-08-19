@@ -1,0 +1,1330 @@
+<root>
+<document schema='101' license='50,Dev User,XDKHX7' title='' description='' target='PIC.16F.16F877A' >
+	<config data='!0,3f72%0,2%2,0%3,0%6,1%7,0%9,3%b,1%8,1%d,1' clkspd='19660800' simspd='1' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='1000' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='1' />
+			<data name='ictrate' value='1000' />
+			<data name='ictmask' value='-1' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug >
+		<watch expr='Chan_str' />
+		<watch expr='pvt_List_Cal2Comp.sTemp' />
+	</debug>
+	<components >
+		<settings autoimg='0' center='1' unitscale='1' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='43861adb-8a59-492d-8f9f-a08775800bc1' vstate='40' vmin='3' vmaj='1' srcleaf='MULTIUART.fcfx' visiblename='MULTIUART (SPI2UART)' description='Uses a high speed SPI connection to enable up to four buffered external UARTs via the MULTIUART modules.
+
+' category='Comms' catenable='1' author='Matrix Ltd' manuname='' manucode='' sysinfo='19927919' keywords='' dynamic='1' iconpath='.\MULTIUART.png' />
+		<component class_type='root' codename='MULTIUART' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+			<resources >
+				<file name='SPIlogo.png' source='.\MULTIUART_Large.png' />
+			</resources>
+			<properties >
+				<property name='Bus Settings' folder='property_1' hidden='0' >
+					<property name='SPI Channel' target='CHANNEL' typeid='16' hidden='0' locked='0' info='SPI peripher onboard the target microcontroller to use.' filter='000Software
+001Channel 1
+' />
+					<property name='Prescale' target='PR_SCALE' typeid='16' hidden='0' locked='0' info='Rate by which the master oscillator is reduced before clocking the SPI peripheral.' filter='004Fosc/4
+016Fosc/16
+064Fosc/64' />
+				</property>
+				<property name='Connections' hidden='0' >
+					<property name='MOSI (SDO)' target='MOSI' typeid='5' hidden='0' locked='1' info='Data Out Pin - Micro Out Serial In' />
+					<property name='MISO (SDI)' target='MISO' typeid='5' hidden='0' locked='1' info='Data In Pin - Micro In Serial Out' />
+					<property name='CLK' target='CLK' typeid='5' hidden='0' locked='1' info='Clock Pin' />
+					<property name='MOSI Remap' target='MosiRemap' typeid='16' hidden='1' locked='0' info='Data Out Remap Pin' />
+					<property name='MISO Remap' target='MisoRemap' typeid='16' hidden='1' locked='0' info='Data In Remap Pin' />
+					<property name='CLK Remap' target='ClkRemap' typeid='16' hidden='1' locked='0' info='Clock Remap Pin' />
+					<property name='CS' target='CS' typeid='5' hidden='0' locked='0' info='' />
+				</property>
+				<property name='Simulation' folder='property_2' hidden='0' >
+					<property name='Label' target='label' typeid='10' hidden='0' locked='0' info='Label used to identify the component on the panel.' />
+					<property name='Scope Traces' target='ScopeTraces' typeid='7' hidden='0' locked='0' info='Selects if the scope traces are automatically generated or not' />
+					<property name='Console Data' target='ConsoleData' typeid='7' hidden='0' locked='0' info='Selects if the console data is automatically generated or not' />
+					<property name='Injector' target='Injector' typeid='16' hidden='0' locked='0' info='Injector component to allow the data in simulation to be passed to something meaningful.' />
+					<property name='Injector Handle' target='InjectorHandle' typeid='21' hidden='1' locked='0' info='' />
+				</property>
+			</properties>
+			<values >
+				<value target='CHANNEL' data='001' />
+				<value target='PR_SCALE' data='016' />
+				<value target='MOSI' data='$PORTC.5' />
+				<value target='MISO' data='$PORTC.4' />
+				<value target='CLK' data='$PORTC.3' />
+				<value target='MosiRemap' data='' />
+				<value target='MisoRemap' data='' />
+				<value target='ClkRemap' data='' />
+				<value target='CS' data='' />
+				<value target='label' data='MULTIUART' />
+				<value target='ScopeTraces' data='0' />
+				<value target='ConsoleData' data='0' />
+				<value target='Injector' data='000' />
+				<value target='InjectorHandle' data='0' />
+			</values>
+			<events >
+				<event class='Simulation' event='Start' target='Ev_Start' />
+				<event class='Components' event='Initialise' target='ev_Init' />
+				<event class='Components' event='Property' target='ev_Prop_Change' />
+				<event class='Connection' event='ChipChange' target='Ev_ChipChange' />
+			</events>
+			<apis >
+				<api name='ReceiveByte' alt='ReceiveByteSim' type='1' proto='1' />
+				<api name='TransmitString' alt='TransmitStringSim' type='1' proto='1' />
+				<api name='SetBaud' alt='SetBaudSim' type='1' proto='1' />
+				<api name='TransmitByte' alt='TransmitByteSim' type='1' proto='1' />
+				<api name='GetConsoleHandle' alt='' type='2' proto='1' />
+				<api name='CheckRx' alt='CheckRxSim' type='1' proto='1' />
+				<api name='ReceiveString' alt='ReceiveStringSim' type='1' proto='1' />
+				<api name='CheckTx' alt='CheckTxSim' type='1' proto='1' />
+				<api name='Initialise' alt='InitialiseSim' type='1' proto='1' />
+			</apis>
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='pvt_Channel' type='s16' description='' isconst='0' isinit='1' usrinit='-1' setinit='-1' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='console_handle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='InitialiseSim' description='' >
+						<command class_type='sim' title='Simulation' component='InjectorBase1' macro='InitialiseInjector' >
+							<argument exp='&quot;MULTIUART&quot;' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ev_Prop_Change' description='Sent when a property has been changed by the User' >
+						<return name='Return' type='u32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='tempstr' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<command class_type='decision' title='Decision' exp='CHANNEL != pvt_Channel' swap='0' >
+							<flowline >
+								<command class_type='call' title='Call Macro' macro='pvt_Prop_Comp2Cal' >
+									<argument exp='&quot;CHANNEL&quot;' />
+								</command>
+								<command class_type='decision' title='Decision' exp='CHANNEL &gt; 0' swap='0' >
+									<flowline >
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+											<return exp='.tempstr' />
+											<argument exp='cal_spi' />
+											<argument exp='&quot;Remappable&quot;' />
+										</command>
+										<command class_type='decision' title='Decision' exp='.tempstr[0] = &apos;1&apos;' swap='0' >
+											<flowline >
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;MosiRemap&quot;' />
+													<argument exp='1' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;MisoRemap&quot;' />
+													<argument exp='1' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;ClkRemap&quot;' />
+													<argument exp='1' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+													<return exp='.tempstr' />
+													<argument exp='cal_spi' />
+													<argument exp='&quot;MOSIPins&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+													<argument exp='this' />
+													<argument exp='&quot;MosiRemap&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+													<return exp='.tempstr' />
+													<argument exp='this' />
+													<argument exp='&quot;MosiRemap&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+													<argument exp='&quot;MOSIPins&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+													<return exp='.tempstr' />
+													<argument exp='cal_spi' />
+													<argument exp='&quot;MISOPins&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+													<argument exp='this' />
+													<argument exp='&quot;MisoRemap&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+													<return exp='.tempstr' />
+													<argument exp='this' />
+													<argument exp='&quot;MisoRemap&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+													<argument exp='&quot;MISOPins&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+													<return exp='.tempstr' />
+													<argument exp='cal_spi' />
+													<argument exp='&quot;CLKPins&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+													<argument exp='this' />
+													<argument exp='&quot;ClkRemap&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+													<return exp='.tempstr' />
+													<argument exp='this' />
+													<argument exp='&quot;ClkRemap&quot;' />
+												</command>
+												<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+													<argument exp='&quot;ClkPins&quot;' />
+													<argument exp='.tempstr' />
+												</command>
+											</flowline>
+											<flowline >
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;MosiRemap&quot;' />
+													<argument exp='0' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;MisoRemap&quot;' />
+													<argument exp='0' />
+												</command>
+												<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+													<argument exp='this' />
+													<argument exp='&quot;ClkRemap&quot;' />
+													<argument exp='0' />
+												</command>
+											</flowline>
+										</command>
+										<command class_type='call' title='Simulation' macro='pvt_Pins_Cal2Comp' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='pvt_Channel = CHANNEL' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Pins_ShowHide' />
+						<command class_type='decision' title='Decision' exp='CHANNEL' swap='0' >
+							<flowline >
+								<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+									<return exp='.tempstr' />
+									<argument exp='cal_spi' />
+									<argument exp='&quot;Remappable&quot;' />
+								</command>
+								<command class_type='decision' title='Decision' exp='.tempstr[0] = &apos;1&apos;' swap='0' >
+									<flowline >
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;MosiRemap&quot;' />
+											<argument exp='1' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;MisoRemap&quot;' />
+											<argument exp='1' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;ClkRemap&quot;' />
+											<argument exp='1' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+											<return exp='.tempstr' />
+											<argument exp='cal_spi' />
+											<argument exp='&quot;MOSIPins&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+											<argument exp='this' />
+											<argument exp='&quot;MosiRemap&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+											<return exp='.tempstr' />
+											<argument exp='this' />
+											<argument exp='&quot;MosiRemap&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+											<argument exp='&quot;MOSIPins&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+											<return exp='.tempstr' />
+											<argument exp='cal_spi' />
+											<argument exp='&quot;MISOPins&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+											<argument exp='this' />
+											<argument exp='&quot;MisoRemap&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+											<return exp='.tempstr' />
+											<argument exp='this' />
+											<argument exp='&quot;MisoRemap&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+											<argument exp='&quot;MISOPins&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetFilter' >
+											<return exp='.tempstr' />
+											<argument exp='cal_spi' />
+											<argument exp='&quot;CLKPins&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+											<argument exp='this' />
+											<argument exp='&quot;ClkRemap&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+											<return exp='.tempstr' />
+											<argument exp='this' />
+											<argument exp='&quot;ClkRemap&quot;' />
+										</command>
+										<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+											<argument exp='&quot;ClkPins&quot;' />
+											<argument exp='.tempstr' />
+										</command>
+										<command class_type='call' title='Simulation' macro='pvt_Pins_Cal2Comp' />
+									</flowline>
+									<flowline >
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;MosiRemap&quot;' />
+											<argument exp='0' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;MisoRemap&quot;' />
+											<argument exp='0' />
+										</command>
+										<command class_type='sim' title='Simulation' macro='Component.Property.SetVisible' >
+											<argument exp='this' />
+											<argument exp='&quot;ClkRemap&quot;' />
+											<argument exp='0' />
+										</command>
+									</flowline>
+								</command>
+							</flowline>
+							<flowline >
+								<command class_type='call' title='Call Macro' macro='pvt_Pins_Comp2Cal' />
+							</flowline>
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+							<return exp='.tempstr' />
+							<argument exp='this' />
+							<argument exp='&quot;DAC_En&quot;' />
+						</command>
+						<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+							<argument exp='&quot;SS&quot;' />
+							<argument exp='.tempstr' />
+						</command>
+						<command class_type='call' title='Panel' macro='pvt_Prop_Comp2Cal' >
+							<argument exp='&quot;PR_SCALE&quot;' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.CopyValue' >
+							<argument exp='this' />
+							<argument exp='dash_IO_flasher' />
+							<argument exp='&quot;label&quot;' />
+						</command>
+						<command class_type='call' title='' macro='PopulateInjectorFilter' />
+						<command class_type='call' title='' macro='GetInjectorHandle' >
+							<argument exp='Injector' />
+						</command>
+						<command class_type='decision' title='Decision' exp='InjectorHandle &gt; 0' swap='0' >
+							<flowline >
+								<command class_type='sim' title='Call Macro' macro='System.RedirectMacros' >
+									<argument exp='InjectorBase1' />
+									<argument exp='InjectorHandle' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+							<return exp='.tempstr' />
+							<argument exp='this' />
+							<argument exp='&quot;ScopeTraces&quot;' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.SetValue' >
+							<argument exp='cal_spi' />
+							<argument exp='&quot;ScopeTraces&quot;' />
+							<argument exp='.tempstr' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+							<return exp='.tempstr' />
+							<argument exp='this' />
+							<argument exp='&quot;ConsoleData&quot;' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.SetValue' >
+							<argument exp='cal_spi' />
+							<argument exp='&quot;ConsoleData&quot;' />
+							<argument exp='.tempstr' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='GetInjectorHandle' description='' >
+						<param name='Index' type='u16' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='ObjHandle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='RootHandle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='OldHandle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Count' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='ObjName' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<local name='CmpName' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<local name='CmpStr' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='sim' title='Call Macro' macro='Component.GetParent' >
+							<return exp='.ObjHandle' />
+							<argument exp='this' />
+						</command>
+						<command class_type='sim' title='Call Macro' macro='Tree.GetCopy' >
+							<return exp='.RootHandle' />
+							<argument exp='.ObjHandle' />
+						</command>
+						<command class_type='loop' title='Loop' type='0' exp='.OldHandle != .ObjHandle' >
+							<flowline >
+								<command class_type='sim' title='Call Macro' macro='Tree.GetCopy' >
+									<return exp='.OldHandle' />
+									<argument exp='.ObjHandle' />
+								</command>
+								<command class_type='sim' title='Call Macro' macro='Tree.GetName' >
+									<return exp='.ObjName' />
+									<argument exp='.ObjHandle' />
+								</command>
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.CmpName = Left$ (.ObjName,8)' />
+								</command>
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.CmpStr = Compare$ (.CmpName,&quot;Injector&quot;,0)' />
+								</command>
+								<command class_type='decision' title='Decision' exp='.CmpStr = 0' swap='0' >
+									<flowline >
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.CmpName = Left$ (.ObjName,12)' />
+										</command>
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.CmpStr = Compare$ (.CmpName,&quot;InjectorBase&quot;,0)' />
+										</command>
+										<command class_type='decision' title='Decision' exp='.CmpStr &gt; 0' swap='0' >
+											<flowline >
+												<command class_type='decision' title='Decision' exp='.Count = .Index' swap='0' >
+													<flowline >
+														<command class_type='sim' title='Simulation' macro='Component.Property.SetValue' >
+															<argument exp='this' />
+															<argument exp='&quot;InjectorHandle&quot;' />
+															<argument exp='.ObjHandle' />
+														</command>
+														<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+													</flowline>
+													<flowline />
+												</command>
+												<command class_type='calculation' title='Calculation' >
+													<exp exp='.Count = .Count + 1' />
+												</command>
+											</flowline>
+											<flowline />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+								<command class_type='sim' title='Call Macro' macro='Tree.Traverse' >
+									<argument exp='.ObjHandle' />
+									<argument exp='.RootHandle' />
+								</command>
+							</flowline>
+						</command>
+						<command class_type='label' title='Connection Point' labelid='0' labelname='A' />
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ReceiveByte' description='Returns the first received byte held in queue for the selected channel.
+Recommended to use the CheckRx macro first to collect number of bytes.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x20 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='1' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<return exp='.Return' />
+									<argument exp='0xFF' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='PopulateInjectorFilter' description='' >
+						<local name='ObjHandle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='RootHandle' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='OldHandle' type='h32' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<local name='ObjName' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<local name='CmpName' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<local name='CmpStr' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Index' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<command class_type='sim' title='Call Macro' macro='Component.Property.SetFilter' >
+							<argument exp='this' />
+							<argument exp='&quot;Injector&quot;' />
+							<argument exp='&quot;&quot;' />
+						</command>
+						<command class_type='sim' title='Call Macro' macro='Component.GetParent' >
+							<return exp='.ObjHandle' />
+							<argument exp='this' />
+						</command>
+						<command class_type='sim' title='Call Macro' macro='Tree.GetCopy' >
+							<return exp='.RootHandle' />
+							<argument exp='.ObjHandle' />
+						</command>
+						<command class_type='loop' title='Loop' type='0' exp='.OldHandle != .ObjHandle' >
+							<flowline >
+								<command class_type='sim' title='Call Macro' macro='Tree.GetCopy' >
+									<return exp='.OldHandle' />
+									<argument exp='.ObjHandle' />
+								</command>
+								<command class_type='sim' title='Call Macro' macro='Tree.GetName' >
+									<return exp='.ObjName' />
+									<argument exp='.ObjHandle' />
+								</command>
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.CmpName = Left$ (.ObjName,8)' />
+								</command>
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.CmpStr = Compare$ (.CmpName,&quot;Injector&quot;,0)' />
+								</command>
+								<command class_type='decision' title='Decision' exp='.CmpStr = 0' swap='0' >
+									<flowline >
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.CmpName = Left$ (.ObjName,12)' />
+										</command>
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.CmpStr = Compare$ (.CmpName,&quot;InjectorBase&quot;,0)' />
+										</command>
+										<command class_type='decision' title='Decision' exp='.CmpStr &gt; 0' swap='0' >
+											<flowline >
+												<command class_type='sim' title='Call Macro' macro='Component.Property.AddListItem' >
+													<argument exp='this' />
+													<argument exp='&quot;Injector&quot;' />
+													<argument exp='.Index' />
+													<argument exp='.ObjName' />
+												</command>
+												<command class_type='calculation' title='Calculation' >
+													<exp exp='.Index = .Index + 1' />
+												</command>
+											</flowline>
+											<flowline />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+								<command class_type='sim' title='Call Macro' macro='Tree.Traverse' >
+									<argument exp='.ObjHandle' />
+									<argument exp='.RootHandle' />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='TransmitString' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Data' type='T8*' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<local name='Length' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Idx' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.Length = Length$ (.Data)' />
+								</command>
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x40 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='.Length' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='loop' title='Loop' type='0' exp='.Idx &lt; .Length' >
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+											<argument exp='.Data[.Idx]' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.Idx = .Idx + 1' />
+										</command>
+									</flowline>
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='SetBaud' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Baud' type='u8' description='0=1200, 1=2400, 2=4800, 3=9600, 4=19200, 5=38400, 6=57600, 7=115200' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.Baud &lt; 8' swap='0' >
+									<flowline >
+										<command class_type='calculation' title='CS Low' >
+											<exp exp='CS = 0' />
+										</command>
+										<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+											<argument exp='0x80 | .UART' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+											<argument exp='.Baud' />
+										</command>
+										<command class_type='calculation' title='CS High' >
+											<exp exp='CS = 1' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_Pins_Cal2Comp' description='' >
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Cal2Comp' >
+							<argument exp='&quot;MISO&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Cal2Comp' >
+							<argument exp='&quot;MOSI&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Cal2Comp' >
+							<argument exp='&quot;CLK&quot;' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Ev_ChipChange' description='Sent when the target device has changed' >
+						<return name='Return' type='u32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Target' type='T8' description='The name of the new target device' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<command class_type='calculation' title='Calculation' >
+							<exp exp='pvt_Channel = 0' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='ev_Prop_Change' />
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;CHANNEL&quot;' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='TransmitByte' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Data' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x40 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='1' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='.Data' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_Pins_ShowHide' description='' >
+						<command class_type='decision' title='Decision' exp='CHANNEL' swap='0' >
+							<flowline >
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;MOSI&quot;' />
+									<argument exp='false' />
+								</command>
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;MISO&quot;' />
+									<argument exp='false' />
+								</command>
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;CLK&quot;' />
+									<argument exp='false' />
+								</command>
+							</flowline>
+							<flowline >
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;MOSI&quot;' />
+									<argument exp='true' />
+								</command>
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;MISO&quot;' />
+									<argument exp='true' />
+								</command>
+								<command class_type='sim' title='Panel' macro='Component.Property.SetWritable' >
+									<argument exp='this' />
+									<argument exp='&quot;CLK&quot;' />
+									<argument exp='true' />
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='TransmitStringSim' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Data' type='T8*' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<local name='Length' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Idx' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='Calculation' >
+									<exp exp='.Length = Length$ (.Data)' />
+								</command>
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x40 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='.Length' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='loop' title='Loop' type='0' exp='.Idx &lt; .Length' >
+									<flowline >
+										<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+											<argument exp='.Data[.Idx]' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.Idx = .Idx + 1' />
+										</command>
+									</flowline>
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ev_Init' description='Initialisation routine for the component once the component is linked to its parent' >
+						<return name='Return' type='u32' description='Non-zero to prevent initialisation' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='temp' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;CHANNEL&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;PR_SCALE&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;CKP&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;CKE&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_List_Cal2Comp' >
+							<argument exp='&quot;SMP&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Pins_ShowHide' />
+						<command class_type='sim' title='Simulation' macro='File.AbsPath' >
+							<return exp='.temp' />
+							<argument exp='&quot;this:SPIlogo.png&quot;' />
+							<argument exp='this' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.SetValue' >
+							<argument exp='dash_IO_flasher' />
+							<argument exp='&quot;icon_image&quot;' />
+							<argument exp='.temp' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_Prop_Cal2Comp' description='' >
+						<param name='sProperty' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<local name='sTemp' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<command class_type='sim' title='Call Macro' component='cal_spi' macro='GetValue' >
+							<return exp='.sTemp' />
+							<argument exp='.sProperty' />
+						</command>
+						<command class_type='sim' title='Clear the property option list' macro='Component.Property.SetValue' >
+							<argument exp='this' />
+							<argument exp='.sProperty' />
+							<argument exp='.sTemp' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='GetConsoleHandle' description='Gets the handle to the console allowing data displaying on the panel etc.' >
+						<return name='Return' type='h32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='calculation' title='Calculation' >
+							<exp exp='.Return = console_handle' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='CheckRxSim' description='Returns the number of received bytes held in queue for the selected channel.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x10 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='RxByte' >
+									<return exp='.Return' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_Pins_Comp2Cal' description='' >
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Comp2Cal' >
+							<argument exp='&quot;MISO&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Comp2Cal' >
+							<argument exp='&quot;MOSI&quot;' />
+						</command>
+						<command class_type='call' title='Call Macro' macro='pvt_Prop_Comp2Cal' >
+							<argument exp='&quot;CLK&quot;' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='TransmitByteSim' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Data' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x40 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='1' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='.Data' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ReceiveStringSim' description='Returns a string of received bytes held in queue for the selected channel.
+Recommended to use the CheckRx macro first to collect number of bytes.' >
+						<return name='Return' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</return>
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='NumBytes' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Idx' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x20 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='.NumBytes' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='loop' title='Loop' type='0' exp='(.Idx &lt; .NumBytes)' >
+									<flowline >
+										<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='RxByte' >
+											<return exp='.Return[.idx]' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.Idx = .Idx + 1' />
+										</command>
+									</flowline>
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+								<command class_type='calculation' title='Terminate String' >
+									<exp exp='.Return[.Idx] = 0' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='CheckRx' description='Returns the number of received bytes held in queue for the selected channel.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x10 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<return exp='.Return' />
+									<argument exp='0xFF' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='CheckTxSim' description='Returns the number of bytes held in the transmit queue for the selected channel.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x30 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='RxByte' >
+									<return exp='.Return' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_Prop_Comp2Cal' description='' >
+						<param name='sProperty' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<local name='sTemp' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</local>
+						<command class_type='sim' title='Simulation' macro='Component.Property.GetValue' >
+							<return exp='.sTemp' />
+							<argument exp='this' />
+							<argument exp='.sProperty' />
+						</command>
+						<command class_type='sim' title='Simulation' component='cal_spi' macro='SetValue' >
+							<argument exp='.sProperty' />
+							<argument exp='.sTemp' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Ev_Start' description='Broadcast to all components that simulation is starting' >
+						<return name='Return' type='u32' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='instance' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='sim' title='Call Macro' component='cal_spi' macro='GetConsoleHandle' >
+							<return exp='console_handle' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.GetInstance' >
+							<return exp='.instance' />
+							<argument exp='this' />
+						</command>
+						<command class_type='sim' title='Call Macro' macro='Console.Rename' >
+							<argument exp='console_handle' />
+							<argument exp='&quot;SPI - Master &quot; + STRING .instance' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='pvt_List_Cal2Comp' description='' >
+						<param name='sProperty' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</param>
+						<local name='sTemp' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='100' />
+						</local>
+						<command class_type='sim' title='Simulation' component='cal_spi' macro='GetList' >
+							<return exp='.sTemp' />
+							<argument exp='.sProperty' />
+						</command>
+						<command class_type='sim' title='Simulation' macro='Component.Property.SetFilter' >
+							<argument exp='this' />
+							<argument exp='.sProperty' />
+							<argument exp='.sTemp' />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Main' description='' >
+						<command class_type='call' title='Call Macro' macro='ev_Init' />
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='CheckTx' description='Returns the number of bytes held in the transmit queue for the selected channel.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x30 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<return exp='.Return' />
+									<argument exp='0xFF' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ReceiveString' description='Returns a string of received bytes held in queue for the selected channel.
+Recommended to use the CheckRx macro first to collect number of bytes.' >
+						<return name='Return' type='T8' description='' isconst='0' isinit='0' usrinit='&quot;&quot;' setinit='' >
+							<array size='20' />
+						</return>
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='NumBytes' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<local name='Idx' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='0x20 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+									<argument exp='.NumBytes' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='loop' title='Loop' type='0' exp='(.Idx &lt; .NumBytes)' >
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Byte' >
+											<return exp='.Return[.Idx]' />
+											<argument exp='0xFF' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='calculation' title='Calculation' >
+											<exp exp='.Idx = .Idx + 1' />
+										</command>
+									</flowline>
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+								<command class_type='calculation' title='Terminate String' >
+									<exp exp='.Return[.Idx] = 0' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='SetBaudSim' description='Adds a byte to the transmit queue for the selected channel.' >
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='Baud' type='u8' description='0=1200, 1=2400, 2=4800, 3=9600, 4=19200, 5=38400, 6=57600, 7=115200' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='decision' title='Decision' exp='.Baud &lt; 8' swap='0' >
+									<flowline >
+										<command class_type='calculation' title='CS Low' >
+											<exp exp='CS = 0' />
+										</command>
+										<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+											<argument exp='0x80 | .UART' />
+										</command>
+										<command class_type='delay' title='Delay' exp='50' type='0' />
+										<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+											<argument exp='.Baud' />
+										</command>
+										<command class_type='calculation' title='CS High' >
+											<exp exp='CS = 1' />
+										</command>
+									</flowline>
+									<flowline />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='ReceiveByteSim' description='Returns the first received byte held in queue for the selected channel.
+Recommended to use the CheckRx macro first to collect number of bytes.' >
+						<return name='Return' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<param name='UART' type='u8' description='UART Index Range: 0-3' isconst='0' isinit='0' usrinit='0' setinit='' />
+						<command class_type='decision' title='Decision' exp='.UART &lt; 4' swap='0' >
+							<flowline >
+								<command class_type='calculation' title='CS Low' >
+									<exp exp='CS = 0' />
+								</command>
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='0x20 | .UART' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='TxByte' >
+									<argument exp='1' />
+								</command>
+								<command class_type='delay' title='Delay' exp='50' type='0' />
+								<command class_type='sim' title='Call Component Macro' component='InjectorBase1' macro='RxByte' >
+									<return exp='.Return' />
+								</command>
+								<command class_type='calculation' title='CS High' >
+									<exp exp='CS = 1' />
+								</command>
+							</flowline>
+							<flowline />
+						</command>
+					</flowline>
+				</macro>
+				<macro >
+					<flowline name='Initialise' description='Activates the SPI peripheral and claims control over the I/O pins.' >
+						<command class_type='calculation' title='CS High' >
+							<exp exp='CS = 1' />
+						</command>
+						<command class_type='call' title='Call Component Macro' component='cal_spi' macro='Master_Init' />
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='ref' guid='c67171df-0ad6-4b11-8361-cfe14b072847' vmin='1' vmaj='1' codename='cal_spi' x='-60.4422' y='-1.46582' z='0' xsz='32' ysz='32' zsz='32' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='ENABLED' data='1' />
+					<value target='REF' data='1' />
+					<value target='CHANNEL' data='001' />
+					<value target='MOSI' data='$PORTC.5' />
+					<value target='MOSIPins' data='008' />
+					<value target='MISO' data='$PORTC.4' />
+					<value target='MISOPins' data='013' />
+					<value target='CLK' data='$PORTC.3' />
+					<value target='CLKPins' data='004' />
+					<value target='SS' data='' />
+					<value target='PR_SCALE' data='016' />
+					<value target='BMODE' data='2' />
+					<value target='CKP' data='000' />
+					<value target='CKE' data='001' />
+					<value target='SMP' data='000' />
+					<value target='MOSI_PORT' data='$PORTC.5' />
+					<value target='MOSI_TRIS' data='$PORTC.5' />
+					<value target='MOSI_PIN' data='5' />
+					<value target='MISO_PORT' data='$PORTC.4' />
+					<value target='MISO_TRIS' data='$PORTC.4' />
+					<value target='MISO_PIN' data='4' />
+					<value target='SCK_PORT' data='$PORTC.3' />
+					<value target='SCK_TRIS' data='$PORTC.3' />
+					<value target='SCK_PIN' data='3' />
+					<value target='SS_PORT' data='' />
+					<value target='SS_TRIS' data='' />
+					<value target='SS_PIN' data='0' />
+					<value target='Remappable' data='' />
+					<value target='MOSIReg' data='008' />
+					<value target='CLKREG' data='004' />
+					<value target='MOSIRPNUM' data='7' />
+					<value target='CLKRPNUM' data='8' />
+					<value target='MISORPREG' data='RPINR20bits.SDI1R' />
+					<value target='CS_PORT' data='' />
+					<value target='ScopeTraces' data='0' />
+					<value target='ConsoleData' data='0' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='175423b4-b359-4aa7-9bc4-1867301742af' vmin='1' vmaj='1' codename='dash_IO_flasher' x='0' y='0' z='16.505' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='label' data='MULTIUART' />
+					<value target='icon_image' data='@00000591:SPIlogo.png' />
+					<value target='flash_time' data='250' />
+					<value target='Tx_on_color' data='65280' />
+					<value target='Tx_off_color' data='13056' />
+					<value target='Rx_on_color' data='255' />
+					<value target='Rx_off_color' data='65' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='cc936c18-5d20-42c4-b940-d3c7ea7ca802' vmin='0' vmaj='1' codename='InjectorBase1' x='-29.0333' y='38.6967' z='0' xsz='20' ysz='20' zsz='20' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+				<resources />
+				<properties />
+				<values />
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='0' brightness='0' perspective='0' >
+		<background rgb='9737364' img='' style='0' />
+		<camera xe='0' ye='0' ze='300' xt='0' yt='0' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='0' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7360576' img='' style='0' size='25' />
+		<camera xe='-26' ye='-2' ze='137.917' xt='-26' yt='-2' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel3d>
+	<layout >
+		<view type='0' name='ev_Prop_Change' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='3003' flags='0' />
+		<view type='0' name='CheckRxSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='CheckRx' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='CheckTxSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='CheckTx' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='ReceiveByteSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='ReceiveByte' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='ReceiveStringSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='ReceiveString' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='SetBaudSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='SetBaud' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='TransmitByteSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='TransmitStringSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='InitialiseSim' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Initialise' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='TransmitByte' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='TransmitString' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Ev_ChipChange' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='ev_Init' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_Pins_Cal2Comp' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_Pins_ShowHide' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_List_Cal2Comp' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='Ev_Start' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_Prop_Comp2Cal' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_Pins_Comp2Cal' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='PopulateInjectorFilter' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='GetInjectorHandle' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='GetConsoleHandle' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+		<view type='0' name='pvt_Prop_Cal2Comp' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAAAUAAJEDAAA' zoom='75' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>
