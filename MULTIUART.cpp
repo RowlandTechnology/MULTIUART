@@ -208,7 +208,6 @@ void MULTIUART::TransmitByte(char UART, char DATA)
 \*=----------------------------------------------------------------------=*/
 void MULTIUART::TransmitString(char UART, char *DATA, char NUMBYTES)
 {
-	char LENGTH;
 	char IDX = (0x0);
 
 	if (UART < 4)
@@ -219,7 +218,7 @@ void MULTIUART::TransmitString(char UART, char *DATA, char NUMBYTES)
 
 		delayMicroseconds(50);
 
-		SPI.transfer(LENGTH);
+		SPI.transfer(NUMBYTES);
 
 		delayMicroseconds(50);
 
