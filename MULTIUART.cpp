@@ -48,7 +48,7 @@ char MULTIUART::CheckRx(char UART)
 
 		SPI.transfer(0x10 | UART);
 
-		delayMicroseconds(50);
+		delayMicroseconds(250);
 
 		RETVAL = SPI.transfer(0xFF);
 
@@ -76,7 +76,7 @@ char MULTIUART::CheckTx(char UART)
 
 		SPI.transfer(0x30 | UART);
 
-		delayMicroseconds(50);
+		delayMicroseconds(250);
 
 		RETVAL = SPI.transfer(0xFF);
 
