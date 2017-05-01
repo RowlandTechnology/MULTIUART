@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/default/production/MultiUART2.X.production.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>8192</length>
+      <used>4134</used>
+      <free>4058</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>131316</length>
+      <used>3621</used>
+      <free>127695</free>
+    </memory>
+  </executable>
+</project>
