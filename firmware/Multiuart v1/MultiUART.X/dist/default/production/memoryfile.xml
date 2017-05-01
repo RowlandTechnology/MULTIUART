@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/MultiUART2.X.production.elf">
+  <executable name="dist/default/production/MultiUART.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>8192</length>
@@ -10,9 +10,9 @@
     </memory>
     <memory name="program">
       <units>bytes</units>
-      <length>131316</length>
-      <used>3753</used>
-      <free>127563</free>
+      <length>65268</length>
+      <used>3477</used>
+      <free>61791</free>
     </memory>
   </executable>
 </project>

@@ -59,10 +59,10 @@ Program Memory  [Origin = 0x200, Length = 0x155f8]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x10a           0x18f  (399)
-.text                        0x30a               0x856           0xc81  (3201)
-.dinit                       0xb60                 0xe            0x15  (21)
+.text                        0x30a               0x8ae           0xd05  (3333)
+.dinit                       0xbb8                 0xe            0x15  (21)
 
-                 Total program memory used (bytes):          0xe25  (3621) 2%
+                 Total program memory used (bytes):          0xea9  (3753) 2%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -143,16 +143,16 @@ External Symbols in Program Memory (by address):
                   0x00062e                  _initSPISlave
                   0x00068e                  _initPWM
                   0x0006b8                  _errState
-                  0x000700                  _main
-                  0x0007fa                  __U1RXInterrupt
-                  0x00082c                  __U2RXInterrupt
-                  0x00085e                  __U3RXInterrupt
-                  0x000890                  __U4RXInterrupt
-                  0x0008c2                  __U1TXInterrupt
-                  0x00090c                  __U2TXInterrupt
-                  0x000956                  __U3TXInterrupt
-                  0x0009a0                  __U4TXInterrupt
-                  0x0009ea                  __SPI1RXInterrupt
+                  0x000720                  _main
+                  0x000842                  __U1RXInterrupt
+                  0x000874                  __U2RXInterrupt
+                  0x0008a6                  __U3RXInterrupt
+                  0x0008d8                  __U4RXInterrupt
+                  0x00090a                  __U1TXInterrupt
+                  0x000954                  __U2TXInterrupt
+                  0x00099e                  __U3TXInterrupt
+                  0x0009e8                  __U4TXInterrupt
+                  0x000a32                  __SPI1RXInterrupt
 
 External Symbols in Program Memory (by name):
 
@@ -161,15 +161,15 @@ External Symbols in Program Memory (by name):
                   0x000530                  _RXUART3
                   0x000548                  _RXUART4
                   0x000304                  __DefaultInterrupt
-                  0x0009ea                  __SPI1RXInterrupt
-                  0x0007fa                  __U1RXInterrupt
-                  0x0008c2                  __U1TXInterrupt
-                  0x00082c                  __U2RXInterrupt
-                  0x00090c                  __U2TXInterrupt
-                  0x00085e                  __U3RXInterrupt
-                  0x000956                  __U3TXInterrupt
-                  0x000890                  __U4RXInterrupt
-                  0x0009a0                  __U4TXInterrupt
+                  0x000a32                  __SPI1RXInterrupt
+                  0x000842                  __U1RXInterrupt
+                  0x00090a                  __U1TXInterrupt
+                  0x000874                  __U2RXInterrupt
+                  0x000954                  __U2TXInterrupt
+                  0x0008a6                  __U3RXInterrupt
+                  0x00099e                  __U3TXInterrupt
+                  0x0008d8                  __U4RXInterrupt
+                  0x0009e8                  __U4TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_da
                   0x00023c                  __psv_init
@@ -180,7 +180,7 @@ External Symbols in Program Memory (by name):
                   0x00068e                  _initPWM
                   0x00062e                  _initSPISlave
                   0x00045c                  _initUarts
-                  0x000700                  _main
+                  0x000720                  _main
                   0x0003ea                  _putCB
                   0x00030a                  _sizeCB
 
@@ -272,9 +272,9 @@ __CONFIG1
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x234 build/default/production/_ext/1472/Firmware.o
 
-.debug_line       0x000000        0x233
+.debug_line       0x000000        0x24b
  *(.debug_line)
- .debug_line      0x000000        0x233 build/default/production/_ext/1472/Firmware.o
+ .debug_line      0x000000        0x24b build/default/production/_ext/1472/Firmware.o
 
 .debug_frame      0x000000        0x3e4
  *(.debug_frame)
@@ -1653,8 +1653,8 @@ __c30_signature
  .ivt._SPI1RXInterrupt
                   0x000088          0x2 build/default/production/_ext/1472/Firmware.o
 
-.text             0x00030a        0x856
- .text            0x00030a        0x856 build/default/production/_ext/1472/Firmware.o
+.text             0x00030a        0x8ae
+ .text            0x00030a        0x8ae build/default/production/_ext/1472/Firmware.o
                   0x00030a                  _sizeCB
                   0x00036c                  _getCB
                   0x0003ea                  _putCB
@@ -1667,16 +1667,16 @@ __c30_signature
                   0x00062e                  _initSPISlave
                   0x00068e                  _initPWM
                   0x0006b8                  _errState
-                  0x000700                  _main
-                  0x0007fa                  __U1RXInterrupt
-                  0x00082c                  __U2RXInterrupt
-                  0x00085e                  __U3RXInterrupt
-                  0x000890                  __U4RXInterrupt
-                  0x0008c2                  __U1TXInterrupt
-                  0x00090c                  __U2TXInterrupt
-                  0x000956                  __U3TXInterrupt
-                  0x0009a0                  __U4TXInterrupt
-                  0x0009ea                  __SPI1RXInterrupt
+                  0x000720                  _main
+                  0x000842                  __U1RXInterrupt
+                  0x000874                  __U2RXInterrupt
+                  0x0008a6                  __U3RXInterrupt
+                  0x0008d8                  __U4RXInterrupt
+                  0x00090a                  __U1TXInterrupt
+                  0x000954                  __U2TXInterrupt
+                  0x00099e                  __U3TXInterrupt
+                  0x0009e8                  __U4TXInterrupt
+                  0x000a32                  __SPI1RXInterrupt
 
-.dinit            0x000b60          0xe
- .dinit           0x000b60          0xe data_init
+.dinit            0x000bb8          0xe
+ .dinit           0x000bb8          0xe data_init

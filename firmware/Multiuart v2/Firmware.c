@@ -710,12 +710,17 @@ void _ISR _SPI1RXInterrupt(void)
             fsmCount = din;
             dout = getCB(fsmBuffer);
             fsmIdx = 1;
-            fsmState = 4;
+            if (fsmIdx == fsmCount)         //1 Byte Only?
+            {
+                fsmState = 7;				//Allow last byte to be read before returning to mode 0
+            }
+            else
+                fsmState = 4;               //Else Goto multi byte receive state
             break;
         case 2:     //CMD_PutTX Length
             fsmCount = din;
             fsmIdx = 0;
-            fsmState = 5;
+            fsmState = 5;                   //Goto multi byte transmit state
             break;
         case 4:     //CMD_GetRX Data
             if (fsmIdx < fsmCount)
