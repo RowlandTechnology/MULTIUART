@@ -74,7 +74,7 @@ extern void __delay32(unsigned long count);
 //Circular Buffers
 //0-3 = Receive Buffers
 //4-7 = Transmit Buffers
-#define CBSIZE	512
+#define CBSIZE	1000
 #define NUMBUF	8
 unsigned char CB[NUMBUF][CBSIZE];						//Buffers
 unsigned int CB_Start[NUMBUF] = {0,0,0,0,0,0,0,0};		//CB Start Pointers

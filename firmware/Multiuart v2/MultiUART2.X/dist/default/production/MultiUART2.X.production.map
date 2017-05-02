@@ -59,10 +59,10 @@ Program Memory  [Origin = 0x200, Length = 0x155f8]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x10a           0x18f  (399)
-.text                        0x30a               0x8ae           0xd05  (3333)
-.dinit                       0xbb8                 0xe            0x15  (21)
+.text                        0x30a               0x8b6           0xd11  (3345)
+.dinit                       0xbc0                 0xe            0x15  (21)
 
-                 Total program memory used (bytes):          0xea9  (3753) 2%
+                 Total program memory used (bytes):          0xeb5  (3765) 2%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -85,9 +85,9 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0             0x6  (6)
-.bss                         0x806                   0          0x1020  (4128)
+.bss                         0x806                   0          0x1f60  (8032)
 
-                 Total data memory used (bytes):         0x1026  (4134) 50%
+                 Total data memory used (bytes):         0x1f66  (8038) 98%
 
 
 Dynamic Memory Usage
@@ -95,9 +95,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1826                               0xfda  (4058)
+stack                       0x2766                                0x9a  (154)
 
-                 Maximum dynamic memory (bytes):          0xfda  (4058)
+                 Maximum dynamic memory (bytes):           0x9a  (154)
 
 
 External Symbols in Data Memory (by address):
@@ -109,14 +109,14 @@ External Symbols in Data Memory (by address):
                     0x0804                  _fsmCount
                     0x0805                  _fsmIdx
                     0x0806                  _CB
-                    0x1806                  _CB_Start
-                    0x1816                  _CB_End
+                    0x2746                  _CB_Start
+                    0x2756                  _CB_End
 
 External Symbols in Data Memory (by name):
 
                     0x0806                  _CB
-                    0x1816                  _CB_End
-                    0x1806                  _CB_Start
+                    0x2756                  _CB_End
+                    0x2746                  _CB_Start
                     0x0800                  _dataFlags
                     0x0803                  _fsmBuffer
                     0x0802                  _fsmCommand
@@ -133,55 +133,55 @@ External Symbols in Program Memory (by address):
                   0x000304                  __DefaultInterrupt
                   0x00030a                  _sizeCB
                   0x00036c                  _getCB
-                  0x0003ea                  _putCB
-                  0x00045c                  _initUarts
-                  0x000500                  _RXUART1
-                  0x000518                  _RXUART2
-                  0x000530                  _RXUART3
-                  0x000548                  _RXUART4
-                  0x000560                  _changeBaud
-                  0x00062e                  _initSPISlave
-                  0x00068e                  _initPWM
-                  0x0006b8                  _errState
-                  0x000720                  _main
-                  0x000842                  __U1RXInterrupt
-                  0x000874                  __U2RXInterrupt
-                  0x0008a6                  __U3RXInterrupt
-                  0x0008d8                  __U4RXInterrupt
-                  0x00090a                  __U1TXInterrupt
-                  0x000954                  __U2TXInterrupt
-                  0x00099e                  __U3TXInterrupt
-                  0x0009e8                  __U4TXInterrupt
-                  0x000a32                  __SPI1RXInterrupt
+                  0x0003ee                  _putCB
+                  0x000464                  _initUarts
+                  0x000508                  _RXUART1
+                  0x000520                  _RXUART2
+                  0x000538                  _RXUART3
+                  0x000550                  _RXUART4
+                  0x000568                  _changeBaud
+                  0x000636                  _initSPISlave
+                  0x000696                  _initPWM
+                  0x0006c0                  _errState
+                  0x000728                  _main
+                  0x00084a                  __U1RXInterrupt
+                  0x00087c                  __U2RXInterrupt
+                  0x0008ae                  __U3RXInterrupt
+                  0x0008e0                  __U4RXInterrupt
+                  0x000912                  __U1TXInterrupt
+                  0x00095c                  __U2TXInterrupt
+                  0x0009a6                  __U3TXInterrupt
+                  0x0009f0                  __U4TXInterrupt
+                  0x000a3a                  __SPI1RXInterrupt
 
 External Symbols in Program Memory (by name):
 
-                  0x000500                  _RXUART1
-                  0x000518                  _RXUART2
-                  0x000530                  _RXUART3
-                  0x000548                  _RXUART4
+                  0x000508                  _RXUART1
+                  0x000520                  _RXUART2
+                  0x000538                  _RXUART3
+                  0x000550                  _RXUART4
                   0x000304                  __DefaultInterrupt
-                  0x000a32                  __SPI1RXInterrupt
-                  0x000842                  __U1RXInterrupt
-                  0x00090a                  __U1TXInterrupt
-                  0x000874                  __U2RXInterrupt
-                  0x000954                  __U2TXInterrupt
-                  0x0008a6                  __U3RXInterrupt
-                  0x00099e                  __U3TXInterrupt
-                  0x0008d8                  __U4RXInterrupt
-                  0x0009e8                  __U4TXInterrupt
+                  0x000a3a                  __SPI1RXInterrupt
+                  0x00084a                  __U1RXInterrupt
+                  0x000912                  __U1TXInterrupt
+                  0x00087c                  __U2RXInterrupt
+                  0x00095c                  __U2TXInterrupt
+                  0x0008ae                  __U3RXInterrupt
+                  0x0009a6                  __U3TXInterrupt
+                  0x0008e0                  __U4RXInterrupt
+                  0x0009f0                  __U4TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_da
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000560                  _changeBaud
-                  0x0006b8                  _errState
+                  0x000568                  _changeBaud
+                  0x0006c0                  _errState
                   0x00036c                  _getCB
-                  0x00068e                  _initPWM
-                  0x00062e                  _initSPISlave
-                  0x00045c                  _initUarts
-                  0x000720                  _main
-                  0x0003ea                  _putCB
+                  0x000696                  _initPWM
+                  0x000636                  _initSPISlave
+                  0x000464                  _initUarts
+                  0x000728                  _main
+                  0x0003ee                  _putCB
                   0x00030a                  _sizeCB
 
 Memory Configuration
@@ -1587,11 +1587,11 @@ __c30_signature
                     0x0804                  _fsmCount
                     0x0805                  _fsmIdx
 
-.bss                0x0806       0x1020
- .bss               0x0806       0x1020 build/default/production/_ext/1472/Firmware.o
+.bss                0x0806       0x1f60
+ .bss               0x0806       0x1f60 build/default/production/_ext/1472/Firmware.o
                     0x0806                  _CB
-                    0x1806                  _CB_Start
-                    0x1816                  _CB_End
+                    0x2746                  _CB_Start
+                    0x2756                  _CB_End
 
 .config_JTAGEN    0x0157fe          0x2
  .config_JTAGEN
@@ -1653,30 +1653,30 @@ __c30_signature
  .ivt._SPI1RXInterrupt
                   0x000088          0x2 build/default/production/_ext/1472/Firmware.o
 
-.text             0x00030a        0x8ae
- .text            0x00030a        0x8ae build/default/production/_ext/1472/Firmware.o
+.text             0x00030a        0x8b6
+ .text            0x00030a        0x8b6 build/default/production/_ext/1472/Firmware.o
                   0x00030a                  _sizeCB
                   0x00036c                  _getCB
-                  0x0003ea                  _putCB
-                  0x00045c                  _initUarts
-                  0x000500                  _RXUART1
-                  0x000518                  _RXUART2
-                  0x000530                  _RXUART3
-                  0x000548                  _RXUART4
-                  0x000560                  _changeBaud
-                  0x00062e                  _initSPISlave
-                  0x00068e                  _initPWM
-                  0x0006b8                  _errState
-                  0x000720                  _main
-                  0x000842                  __U1RXInterrupt
-                  0x000874                  __U2RXInterrupt
-                  0x0008a6                  __U3RXInterrupt
-                  0x0008d8                  __U4RXInterrupt
-                  0x00090a                  __U1TXInterrupt
-                  0x000954                  __U2TXInterrupt
-                  0x00099e                  __U3TXInterrupt
-                  0x0009e8                  __U4TXInterrupt
-                  0x000a32                  __SPI1RXInterrupt
+                  0x0003ee                  _putCB
+                  0x000464                  _initUarts
+                  0x000508                  _RXUART1
+                  0x000520                  _RXUART2
+                  0x000538                  _RXUART3
+                  0x000550                  _RXUART4
+                  0x000568                  _changeBaud
+                  0x000636                  _initSPISlave
+                  0x000696                  _initPWM
+                  0x0006c0                  _errState
+                  0x000728                  _main
+                  0x00084a                  __U1RXInterrupt
+                  0x00087c                  __U2RXInterrupt
+                  0x0008ae                  __U3RXInterrupt
+                  0x0008e0                  __U4RXInterrupt
+                  0x000912                  __U1TXInterrupt
+                  0x00095c                  __U2TXInterrupt
+                  0x0009a6                  __U3TXInterrupt
+                  0x0009f0                  __U4TXInterrupt
+                  0x000a3a                  __SPI1RXInterrupt
 
-.dinit            0x000bb8          0xe
- .dinit           0x000bb8          0xe data_init
+.dinit            0x000bc0          0xe
+ .dinit           0x000bc0          0xe data_init
