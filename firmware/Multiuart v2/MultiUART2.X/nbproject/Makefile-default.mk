@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Firmware.c
+SOURCEFILES_QUOTED_IF_SPACED=../Firmware.c ../FlashEE.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/Firmware.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/Firmware.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/Firmware.o ${OBJECTDIR}/_ext/1472/FlashEE.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/Firmware.o.d ${OBJECTDIR}/_ext/1472/FlashEE.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/Firmware.o
+OBJECTFILES=${OBJECTDIR}/_ext/1472/Firmware.o ${OBJECTDIR}/_ext/1472/FlashEE.o
 
 # Source Files
-SOURCEFILES=../Firmware.c
+SOURCEFILES=../Firmware.c ../FlashEE.c
 
 
 CFLAGS=
@@ -101,6 +101,13 @@ ${OBJECTDIR}/_ext/1472/Firmware.o: ../Firmware.c  nbproject/Makefile-${CND_CONF}
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Firmware.c  -o ${OBJECTDIR}/_ext/1472/Firmware.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/Firmware.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/Firmware.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/1472/FlashEE.o: ../FlashEE.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/FlashEE.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/FlashEE.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../FlashEE.c  -o ${OBJECTDIR}/_ext/1472/FlashEE.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/FlashEE.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/FlashEE.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1472/Firmware.o: ../Firmware.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
@@ -108,6 +115,13 @@ ${OBJECTDIR}/_ext/1472/Firmware.o: ../Firmware.c  nbproject/Makefile-${CND_CONF}
 	@${RM} ${OBJECTDIR}/_ext/1472/Firmware.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Firmware.c  -o ${OBJECTDIR}/_ext/1472/Firmware.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/Firmware.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/Firmware.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/1472/FlashEE.o: ../FlashEE.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/FlashEE.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/FlashEE.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../FlashEE.c  -o ${OBJECTDIR}/_ext/1472/FlashEE.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/FlashEE.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/FlashEE.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

@@ -16,6 +16,7 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/_ext/1472/Firmware.o \
+  build/default/production/_ext/1472/FlashEE.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24FJ128GA202.gld.00 \
@@ -59,10 +60,12 @@ Program Memory  [Origin = 0x200, Length = 0x155f8]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x10a           0x18f  (399)
-.text                        0x30a               0x8b6           0xd11  (3345)
-.dinit                       0xbc0                 0xe            0x15  (21)
+.text                        0x30a               0x844           0xc66  (3174)
+.dinit                       0xb4e                0x14            0x1e  (30)
+.prog                       0x1000               0x800           0xc00  (3072)
+.text                       0x1800               0x556           0x801  (2049)
 
-                 Total program memory used (bytes):          0xeb5  (3765) 2%
+                 Total program memory used (bytes):         0x2214  (8724) 6%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -84,10 +87,10 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x6  (6)
-.bss                         0x806                   0          0x1f60  (8032)
+.nbss                        0x800                   0             0xe  (14)
+.bss                         0x80e                   0          0x1f60  (8032)
 
-                 Total data memory used (bytes):         0x1f66  (8038) 98%
+                 Total data memory used (bytes):         0x1f6e  (8046) 98%
 
 
 Dynamic Memory Usage
@@ -95,34 +98,42 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x2766                                0x9a  (154)
+stack                       0x276e                                0x92  (146)
 
-                 Maximum dynamic memory (bytes):           0x9a  (154)
+                 Maximum dynamic memory (bytes):           0x92  (146)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _dataFlags
-                    0x0801                  _fsmState
-                    0x0802                  _fsmCommand
-                    0x0803                  _fsmBuffer
-                    0x0804                  _fsmCount
-                    0x0805                  _fsmIdx
-                    0x0806                  _CB
-                    0x2746                  _CB_Start
-                    0x2756                  _CB_End
+                    0x0800                  _FlashEEPAGE
+                    0x0802                  _FlashEECOUNT
+                    0x0804                  _FlashEEINITIALIZED
+                    0x0806                  _FlashEECELL
+                    0x0808                  _dataFlags
+                    0x0809                  _fsmState
+                    0x080a                  _fsmCommand
+                    0x080b                  _fsmBuffer
+                    0x080c                  _fsmCount
+                    0x080d                  _fsmIdx
+                    0x080e                  _CB
+                    0x274e                  _CB_Start
+                    0x275e                  _CB_End
 
 External Symbols in Data Memory (by name):
 
-                    0x0806                  _CB
-                    0x2756                  _CB_End
-                    0x2746                  _CB_Start
-                    0x0800                  _dataFlags
-                    0x0803                  _fsmBuffer
-                    0x0802                  _fsmCommand
-                    0x0804                  _fsmCount
-                    0x0805                  _fsmIdx
-                    0x0801                  _fsmState
+                    0x080e                  _CB
+                    0x275e                  _CB_End
+                    0x274e                  _CB_Start
+                    0x0806                  _FlashEECELL
+                    0x0802                  _FlashEECOUNT
+                    0x0804                  _FlashEEINITIALIZED
+                    0x0800                  _FlashEEPAGE
+                    0x0808                  _dataFlags
+                    0x080b                  _fsmBuffer
+                    0x080a                  _fsmCommand
+                    0x080c                  _fsmCount
+                    0x080d                  _fsmIdx
+                    0x0809                  _fsmState
 
 External Symbols in Program Memory (by address):
 
@@ -135,52 +146,72 @@ External Symbols in Program Memory (by address):
                   0x00036c                  _getCB
                   0x0003ee                  _putCB
                   0x000464                  _initUarts
-                  0x000508                  _RXUART1
-                  0x000520                  _RXUART2
-                  0x000538                  _RXUART3
-                  0x000550                  _RXUART4
-                  0x000568                  _changeBaud
-                  0x000636                  _initSPISlave
-                  0x000696                  _initPWM
-                  0x0006c0                  _errState
-                  0x000728                  _main
-                  0x00084a                  __U1RXInterrupt
-                  0x00087c                  __U2RXInterrupt
-                  0x0008ae                  __U3RXInterrupt
-                  0x0008e0                  __U4RXInterrupt
-                  0x000912                  __U1TXInterrupt
-                  0x00095c                  __U2TXInterrupt
-                  0x0009a6                  __U3TXInterrupt
-                  0x0009f0                  __U4TXInterrupt
-                  0x000a3a                  __SPI1RXInterrupt
+                  0x00054c                  _RXUART1
+                  0x000564                  _RXUART2
+                  0x00057c                  _RXUART3
+                  0x000594                  _RXUART4
+                  0x0005ac                  _changeBaud
+                  0x00067a                  _initSPISlave
+                  0x0006da                  _initPWM
+                  0x000704                  _errState
+                  0x00076c                  _main
+                  0x000868                  __U1RXInterrupt
+                  0x00088a                  __U2RXInterrupt
+                  0x0008ac                  __U3RXInterrupt
+                  0x0008ce                  __U4RXInterrupt
+                  0x0008f0                  __U1TXInterrupt
+                  0x00092a                  __U2TXInterrupt
+                  0x000964                  __U3TXInterrupt
+                  0x00099e                  __U4TXInterrupt
+                  0x0009d8                  __SPI1RXInterrupt
+                  0x001000                  _FlashBuffer
+                  0x001800                  _FlashEEClearPage
+                  0x00187a                  _FlashEEReadCell
+                  0x001918                  _FlashEEWriteCell
+                  0x0019a8                  _FlashEEClear
+                  0x001a26                  _FlashEERead
+                  0x001ad8                  _FlashEEClearAll
+                  0x001af0                  _FlashEEWrite
+                  0x001b52                  _FlashEEConsolidatePage
+                  0x001bdc                  _FlashEEInitialise
 
 External Symbols in Program Memory (by name):
 
-                  0x000508                  _RXUART1
-                  0x000520                  _RXUART2
-                  0x000538                  _RXUART3
-                  0x000550                  _RXUART4
+                  0x001000                  _FlashBuffer
+                  0x0019a8                  _FlashEEClear
+                  0x001ad8                  _FlashEEClearAll
+                  0x001800                  _FlashEEClearPage
+                  0x001b52                  _FlashEEConsolidatePage
+                  0x001bdc                  _FlashEEInitialise
+                  0x001a26                  _FlashEERead
+                  0x00187a                  _FlashEEReadCell
+                  0x001af0                  _FlashEEWrite
+                  0x001918                  _FlashEEWriteCell
+                  0x00054c                  _RXUART1
+                  0x000564                  _RXUART2
+                  0x00057c                  _RXUART3
+                  0x000594                  _RXUART4
                   0x000304                  __DefaultInterrupt
-                  0x000a3a                  __SPI1RXInterrupt
-                  0x00084a                  __U1RXInterrupt
-                  0x000912                  __U1TXInterrupt
-                  0x00087c                  __U2RXInterrupt
-                  0x00095c                  __U2TXInterrupt
-                  0x0008ae                  __U3RXInterrupt
-                  0x0009a6                  __U3TXInterrupt
-                  0x0008e0                  __U4RXInterrupt
-                  0x0009f0                  __U4TXInterrupt
+                  0x0009d8                  __SPI1RXInterrupt
+                  0x000868                  __U1RXInterrupt
+                  0x0008f0                  __U1TXInterrupt
+                  0x00088a                  __U2RXInterrupt
+                  0x00092a                  __U2TXInterrupt
+                  0x0008ac                  __U3RXInterrupt
+                  0x000964                  __U3TXInterrupt
+                  0x0008ce                  __U4RXInterrupt
+                  0x00099e                  __U4TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_da
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000568                  _changeBaud
-                  0x0006c0                  _errState
+                  0x0005ac                  _changeBaud
+                  0x000704                  _errState
                   0x00036c                  _getCB
-                  0x000696                  _initPWM
-                  0x000636                  _initSPISlave
+                  0x0006da                  _initPWM
+                  0x00067a                  _initSPISlave
                   0x000464                  _initUarts
-                  0x000728                  _main
+                  0x00076c                  _main
                   0x0003ee                  _putCB
                   0x00030a                  _sizeCB
 
@@ -202,6 +233,7 @@ CONFIG1          0x0157fe           0x000002
 Linker script and memory map
 
 LOAD build/default/production/_ext/1472/Firmware.o
+LOAD build/default/production/_ext/1472/FlashEE.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
@@ -263,26 +295,31 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x36ac
+.debug_info       0x000000       0x3d08
  *(.debug_info)
- .debug_info      0x000000       0x36ac build/default/production/_ext/1472/Firmware.o
+ .debug_info      0x000000       0x36e4 build/default/production/_ext/1472/Firmware.o
+ .debug_info      0x0036e4        0x624 build/default/production/_ext/1472/FlashEE.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x234
+.debug_abbrev     0x000000        0x393
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x234 build/default/production/_ext/1472/Firmware.o
+ .debug_abbrev    0x000000        0x21f build/default/production/_ext/1472/Firmware.o
+ .debug_abbrev    0x00021f        0x174 build/default/production/_ext/1472/FlashEE.o
 
-.debug_line       0x000000        0x24b
+.debug_line       0x000000        0x3ca
  *(.debug_line)
- .debug_line      0x000000        0x24b build/default/production/_ext/1472/Firmware.o
+ .debug_line      0x000000        0x244 build/default/production/_ext/1472/Firmware.o
+ .debug_line      0x000244        0x186 build/default/production/_ext/1472/FlashEE.o
 
-.debug_frame      0x000000        0x3e4
+.debug_frame      0x000000        0x4d0
  *(.debug_frame)
- .debug_frame     0x000000        0x3e4 build/default/production/_ext/1472/Firmware.o
+ .debug_frame     0x000000        0x3c0 build/default/production/_ext/1472/Firmware.o
+ .debug_frame     0x0003c0        0x110 build/default/production/_ext/1472/FlashEE.o
 
-.debug_str        0x000000        0x263
+.debug_str        0x000000        0x301
  *(.debug_str)
  .debug_str       0x000000        0x263 build/default/production/_ext/1472/Firmware.o
+ .debug_str       0x000263         0x9e build/default/production/_ext/1472/FlashEE.o
 
 .debug_loc
  *(.debug_loc)
@@ -291,18 +328,22 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x1cd
+                  0x000000        0x2ec
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000        0x1cd build/default/production/_ext/1472/Firmware.o
+ .debug_pubnames
+                  0x0001cd        0x11f build/default/production/_ext/1472/FlashEE.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x18
+.debug_aranges    0x000000         0x30
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/_ext/1472/Firmware.o
+ .debug_aranges
+                  0x000018         0x18 build/default/production/_ext/1472/FlashEE.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1565,33 +1606,42 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000018        0x3af
+                  0x000030        0x3c1
  .debug_pubtypes
-                  0x000018        0x3af build/default/production/_ext/1472/Firmware.o
+                  0x000030        0x3af build/default/production/_ext/1472/Firmware.o
+ .debug_pubtypes
+                  0x0003df         0x12 build/default/production/_ext/1472/FlashEE.o
 
 __c30_signature
-                  0x0003c7         0x12
+                  0x0003f1         0x18
  __c30_signature
-                  0x0003c7          0x6 build/default/production/_ext/1472/Firmware.o
+                  0x0003f1          0x6 build/default/production/_ext/1472/Firmware.o
  __c30_signature
-                  0x0003cd          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libpic30-elf.a(crt0_extended24.o)
+                  0x0003f7          0x6 build/default/production/_ext/1472/FlashEE.o
  __c30_signature
-                  0x0003d3          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libpic30-elf.a(data_init_24.o)
+                  0x0003fd          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libpic30-elf.a(crt0_extended24.o)
+ __c30_signature
+                  0x000403          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libpic30-elf.a(data_init_24.o)
 
-.nbss               0x0800          0x6
- .nbss              0x0800          0x6 build/default/production/_ext/1472/Firmware.o
-                    0x0800                  _dataFlags
-                    0x0801                  _fsmState
-                    0x0802                  _fsmCommand
-                    0x0803                  _fsmBuffer
-                    0x0804                  _fsmCount
-                    0x0805                  _fsmIdx
+.nbss               0x0800          0xe
+ .nbss              0x0800          0x8 build/default/production/_ext/1472/FlashEE.o
+                    0x0800                  _FlashEEPAGE
+                    0x0802                  _FlashEECOUNT
+                    0x0804                  _FlashEEINITIALIZED
+                    0x0806                  _FlashEECELL
+ .nbss              0x0808          0x6 build/default/production/_ext/1472/Firmware.o
+                    0x0808                  _dataFlags
+                    0x0809                  _fsmState
+                    0x080a                  _fsmCommand
+                    0x080b                  _fsmBuffer
+                    0x080c                  _fsmCount
+                    0x080d                  _fsmIdx
 
-.bss                0x0806       0x1f60
- .bss               0x0806       0x1f60 build/default/production/_ext/1472/Firmware.o
-                    0x0806                  _CB
-                    0x2746                  _CB_Start
-                    0x2756                  _CB_End
+.bss                0x080e       0x1f60
+ .bss               0x080e       0x1f60 build/default/production/_ext/1472/Firmware.o
+                    0x080e                  _CB
+                    0x274e                  _CB_Start
+                    0x275e                  _CB_End
 
 .config_JTAGEN    0x0157fe          0x2
  .config_JTAGEN
@@ -1653,30 +1703,46 @@ __c30_signature
  .ivt._SPI1RXInterrupt
                   0x000088          0x2 build/default/production/_ext/1472/Firmware.o
 
-.text             0x00030a        0x8b6
- .text            0x00030a        0x8b6 build/default/production/_ext/1472/Firmware.o
+.text             0x00030a        0x844
+ .text            0x00030a        0x844 build/default/production/_ext/1472/Firmware.o
                   0x00030a                  _sizeCB
                   0x00036c                  _getCB
                   0x0003ee                  _putCB
                   0x000464                  _initUarts
-                  0x000508                  _RXUART1
-                  0x000520                  _RXUART2
-                  0x000538                  _RXUART3
-                  0x000550                  _RXUART4
-                  0x000568                  _changeBaud
-                  0x000636                  _initSPISlave
-                  0x000696                  _initPWM
-                  0x0006c0                  _errState
-                  0x000728                  _main
-                  0x00084a                  __U1RXInterrupt
-                  0x00087c                  __U2RXInterrupt
-                  0x0008ae                  __U3RXInterrupt
-                  0x0008e0                  __U4RXInterrupt
-                  0x000912                  __U1TXInterrupt
-                  0x00095c                  __U2TXInterrupt
-                  0x0009a6                  __U3TXInterrupt
-                  0x0009f0                  __U4TXInterrupt
-                  0x000a3a                  __SPI1RXInterrupt
+                  0x00054c                  _RXUART1
+                  0x000564                  _RXUART2
+                  0x00057c                  _RXUART3
+                  0x000594                  _RXUART4
+                  0x0005ac                  _changeBaud
+                  0x00067a                  _initSPISlave
+                  0x0006da                  _initPWM
+                  0x000704                  _errState
+                  0x00076c                  _main
+                  0x000868                  __U1RXInterrupt
+                  0x00088a                  __U2RXInterrupt
+                  0x0008ac                  __U3RXInterrupt
+                  0x0008ce                  __U4RXInterrupt
+                  0x0008f0                  __U1TXInterrupt
+                  0x00092a                  __U2TXInterrupt
+                  0x000964                  __U3TXInterrupt
+                  0x00099e                  __U4TXInterrupt
+                  0x0009d8                  __SPI1RXInterrupt
 
-.dinit            0x000bc0          0xe
- .dinit           0x000bc0          0xe data_init
+.prog             0x001000        0x800
+ .prog            0x001000        0x800 build/default/production/_ext/1472/FlashEE.o
+                  0x001000                  _FlashBuffer
+
+.text             0x001800        0x556
+ .text            0x001800        0x556 build/default/production/_ext/1472/FlashEE.o
+                  0x001800                  _FlashEEClearPage
+                  0x00187a                  _FlashEEReadCell
+                  0x001918                  _FlashEEWriteCell
+                  0x0019a8                  _FlashEEClear
+                  0x001a26                  _FlashEERead
+                  0x001ad8                  _FlashEEClearAll
+                  0x001af0                  _FlashEEWrite
+                  0x001b52                  _FlashEEConsolidatePage
+                  0x001bdc                  _FlashEEInitialise
+
+.dinit            0x000b4e         0x14
+ .dinit           0x000b4e         0x14 data_init

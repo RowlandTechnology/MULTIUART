@@ -73,6 +73,9 @@ extern void __delay32(unsigned long count);
 #define RT_PWM_RPOR         RPOR3       //B7 RP7 MSB
 
 
+//Flash EE Memory
+#include "FlashEE.h"
+
 //Circular Buffers
 
 //0-3 = Receive Buffers
@@ -106,6 +109,7 @@ unsigned int sizeCB(unsigned char buffer)
             }
 
 	}
+    return (0);
 }
 
 unsigned char getCB(unsigned char buffer)
@@ -168,10 +172,26 @@ unsigned char dataFlags = 0;
 
 void initUarts()
 {
+    unsigned int EEbaud[4];
+    unsigned char idx = 0;
+    
+    while (idx < 4)                             //Read Baud Rates From ROM       
+    {
+        //EEbaud[idx] = FlashEERead(idx);   
+        EEbaud[idx] = RT_HARD_BAUD_9600;        //Flash Write routine currently has a bug on this device! Workaround
+        
+        if ((EEbaud[idx] > RT_HARD_BAUD_1200) || (EEbaud[idx] < RT_HARD_BAUD_115200))              //Unprogrammed location?
+        {
+            EEbaud[idx] = RT_HARD_BAUD_9600;            //Default to 9600
+            //FlashEEWrite(idx, RT_HARD_BAUD_9600);     //Write baud to flash
+        }
+        idx++;
+    }
+    
 	//Channel 1
 	RT_UART_1_TX_RPOR = 3;
 	RPINR18 = RT_UART_1_RX_RP;
-	U1BRG = RT_HARD_BAUD_9600; 					// Set the baud rate
+	U1BRG = EEbaud[0];                          // Set the baud rate
 	U1STA = 0;    								// Reset the UART
 	U1MODE = 0;									// Reset the mode
 	U1MODEbits.UARTEN = 1;         				// turn on serial interface 1
@@ -182,7 +202,7 @@ void initUarts()
 	//Channel 2
 	RT_UART_2_TX_RPOR = 5;
 	RPINR19 = RT_UART_2_RX_RP;
-	U2BRG = RT_HARD_BAUD_9600;   				// Set the baud rate
+	U2BRG = EEbaud[1];                          // Set the baud rate
 	U2STA = 0;    								// Reset the UART
 	U2MODE = 0;									// Reset the mode
 	U2MODEbits.UARTEN = 1;         				// turn on serial interface 2
@@ -193,7 +213,7 @@ void initUarts()
 	//Channel 3
 	RT_UART_3_TX_RPOR = 28;
 	RPINR17 = (RT_UART_3_RX_RP << 8);
-	U3BRG = RT_HARD_BAUD_9600;   				// Set the baud rate
+	U3BRG = EEbaud[2];                          // Set the baud rate
 	U3STA = 0;    								// Reset the UART
 	U3MODE = 0;									// Reset the mode
 	U3MODEbits.UARTEN = 1;         				// turn on serial interface 3
@@ -204,7 +224,7 @@ void initUarts()
 	//Channel 4
 	RT_UART_4_TX_RPOR = 30;
 	RPINR27 = RT_UART_4_RX_RP;
-	U4BRG = RT_HARD_BAUD_9600;   				// Set the baud rate
+	U4BRG = EEbaud[3];                          // Set the baud rate
 	U4STA = 0;    								// Reset the UART
 	U4MODE = 0;									// Reset the mode
 	U4MODEbits.UARTEN = 1;         				// turn on serial interface 4
@@ -223,20 +243,6 @@ unsigned char RXUART1 ()
 
 unsigned char RXUART2 ()
 {
-/*	unsigned char retval = 0;
-        unsigned char dummy;
-	if (U2STAbits.URXDA)
-	{
-		if (U2STAbits.FERR)				//Frame Error?
-		{
-			dummy = U2RXREG;     	 	//Clear Frame Error
-		}
-		else if (U2STAbits.OERR)		//Overrun Error?
-		{
-			U2STAbits.OERR = 0;			//Clear Overrun Error
-		}
-		else
-		{*/
         putCB(1, U2RXREG);			//Load lower Byte into CB
         dataFlags |= 2;
 	return 1;
@@ -307,6 +313,7 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 		U1MODEbits.UARTEN = 0;         				// turn off serial interface
 		U1STAbits.UTXEN = 0;
 		U1BRG = baudrate; 							// Set the baud rate
+        //FlashEEWrite(0, baudrate);
 		U1MODEbits.UARTEN = 1;         				// turn on serial interface
 		U1STAbits.UTXEN = 1;
 	}
@@ -315,6 +322,7 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 		U2MODEbits.UARTEN = 0;         				// turn off serial interface
 		U2STAbits.UTXEN = 0;
 		U2BRG = baudrate;   						// Set the baud rate
+        //FlashEEWrite(1, baudrate);
 		U2MODEbits.UARTEN = 1;         				// turn on serial interface
 		U2STAbits.UTXEN = 1;
 	}
@@ -323,6 +331,7 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 		U3MODEbits.UARTEN = 0;         				// turn off serial interface
 		U3STAbits.UTXEN = 0;
 		U3BRG = baudrate;   						// Set the baud rate
+        //FlashEEWrite(2, baudrate);
 		U3MODEbits.UARTEN = 1;         				// turn on serial interface
 		U3STAbits.UTXEN = 1;
 	}
@@ -331,6 +340,7 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 		U4MODEbits.UARTEN = 0;         				// turn off serial interface
 		U4STAbits.UTXEN = 0;
 		U4BRG = baudrate;   						// Set the baud rate
+        //FlashEEWrite(3, baudrate);
 		U4MODEbits.UARTEN = 1;         				// turn on serial interface
 		U4STAbits.UTXEN = 1;
 	}
@@ -386,6 +396,67 @@ void initPWM ()
 
 
 
+void errState (unsigned char err)
+{
+/*    unsigned char num = 0;
+    num = 0;
+    while (num < err)
+    {
+        OC1RS = 255;
+        delay_ms(100);
+        OC1RS = 0;
+        delay_ms(200);
+        num++;
+    }
+    OC1RS = 0;
+    delay_s(2);
+*/
+    
+    switch (err)
+    {
+        case 1:
+            U1STA = 0;    								// Reset the UART
+            U1MODE = 0;									// Reset the mode
+            U1MODEbits.UARTEN = 1;         				// turn on serial interface 1
+            U1STAbits.UTXEN = 1;
+            IEC0bits.U1RXIE = 1;						// turn on RX interrupt
+            IEC0bits.U1TXIE = 1;						// turn on TX interrupt
+            break;
+        case 2:
+            U2STA = 0;    								// Reset the UART
+            U2MODE = 0;									// Reset the mode
+            U2MODEbits.UARTEN = 1;         				// turn on serial interface 2
+            U2STAbits.UTXEN = 1;
+            IEC1bits.U2RXIE = 1;						// turn on RX interrupt
+            IEC1bits.U2TXIE = 1;						// turn on TX interrupt
+            break;
+        case 3:
+            U3STA = 0;    								// Reset the UART
+            U3MODE = 0;									// Reset the mode
+            U3MODEbits.UARTEN = 1;         				// turn on serial interface 3
+            U3STAbits.UTXEN = 1;
+            IEC5bits.U3RXIE = 1;						// turn on RX interrupt
+            IEC5bits.U3TXIE = 1;						// turn on TX interrupt
+            break;
+        case 4:
+            U4STA = 0;    								// Reset the UART
+            U4MODE = 0;									// Reset the mode
+            U4MODEbits.UARTEN = 1;         				// turn on serial interface 4
+            U4STAbits.UTXEN = 1;
+            IEC5bits.U4RXIE = 1;						// turn on RX interrupt
+            IEC5bits.U4TXIE = 1;						// turn on TX interrupt
+            break;
+        case 5:
+            SPI1STAT = 0;
+            fsmState = 0;
+            initSPISlave();
+        default:
+            break;
+    }
+}
+
+
+
 
 //Program Code
 
@@ -407,6 +478,7 @@ int main (void)
 
 
 	initPWM();
+    FlashEEInitialise();
 	initSPISlave();
 	initUarts();
 
@@ -468,50 +540,16 @@ int main (void)
 }
 
 
-
-void errState (unsigned char err)
-{
-/*    unsigned char num = 0;
-    num = 0;
-    while (num < err)
-    {
-        OC1RS = 255;
-        delay_ms(100);
-        OC1RS = 0;
-        delay_ms(200);
-        num++;
-    }
-    OC1RS = 0;
-    delay_s(2);
-*/
-    
-    switch (err)
-    {
-        case 1:
-            U1MODE = 0;
-            initUarts();
-            break;
-        case 2:
-            U2MODE = 0;
-            initUarts();
-            break;
-        case 3:
-            U3MODE = 0;
-            initUarts();
-            break;
-        case 4:
-            U4MODE = 0;
-            initUarts();
-            break;
-        case 5:
-            SPI1STAT = 0;
-            fsmState = 0;
-            initSPISlave();
-        default:
-            break;
-    }
-}
-
+//No Auto PSV - Ensure interrupt latency is at a minimum
+void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U2RXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U3RXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U4RXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U3TXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U4TXInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _SPI1Interrupt(void);
 
 
 //UART Interrupts

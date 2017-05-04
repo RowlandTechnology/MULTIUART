@@ -13,6 +13,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>../Firmware.c</itemPath>
+      <itemPath>../FlashEE.c</itemPath>
+      <itemPath>../FlashEE.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
