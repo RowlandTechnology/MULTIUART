@@ -244,13 +244,13 @@ void MULTIUART::TransmitString(char UART, char *DATA, char NUMBYTES)
    Use :Configures the baud rate of the selected channel.
        :Parameters for macro SetBaud:
        :  UART : UART Index Range: 0-3
-       :  Baud : 0=1200, 1=2400, 2=4800, 3=9600, 4=19200, 5=38400, 6=57600, 7=115200
+       :  Baud : 0=1200, 1=2400, 2=4800, 3=9600, 4=19200, 5=38400, 6=57600, 7=115200, 8=31250, 9=62500
 \*=----------------------------------------------------------------------=*/
 void MULTIUART::SetBaud(char UART, char BAUD)
 {
 	if (UART < 4)
 	{
-		if (BAUD < 8)
+		if (BAUD < 10)
 		{
 			digitalWrite(_ss_pin, LOW);
 

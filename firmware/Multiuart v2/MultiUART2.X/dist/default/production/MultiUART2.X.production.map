@@ -60,12 +60,12 @@ Program Memory  [Origin = 0x200, Length = 0x155f8]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x10a           0x18f  (399)
-.text                        0x30a               0x844           0xc66  (3174)
-.dinit                       0xb4e                0x14            0x1e  (30)
+.text                        0x30a               0x85c           0xc8a  (3210)
+.dinit                       0xb66                0x14            0x1e  (30)
 .prog                       0x1000               0x800           0xc00  (3072)
 .text                       0x1800               0x556           0x801  (2049)
 
-                 Total program memory used (bytes):         0x2214  (8724) 6%
+                 Total program memory used (bytes):         0x2238  (8760) 6%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -151,19 +151,19 @@ External Symbols in Program Memory (by address):
                   0x00057c                  _RXUART3
                   0x000594                  _RXUART4
                   0x0005ac                  _changeBaud
-                  0x00067a                  _initSPISlave
-                  0x0006da                  _initPWM
-                  0x000704                  _errState
-                  0x00076c                  _main
-                  0x000868                  __U1RXInterrupt
-                  0x00088a                  __U2RXInterrupt
-                  0x0008ac                  __U3RXInterrupt
-                  0x0008ce                  __U4RXInterrupt
-                  0x0008f0                  __U1TXInterrupt
-                  0x00092a                  __U2TXInterrupt
-                  0x000964                  __U3TXInterrupt
-                  0x00099e                  __U4TXInterrupt
-                  0x0009d8                  __SPI1RXInterrupt
+                  0x000692                  _initSPISlave
+                  0x0006f2                  _initPWM
+                  0x00071c                  _errState
+                  0x000784                  _main
+                  0x000880                  __U1RXInterrupt
+                  0x0008a2                  __U2RXInterrupt
+                  0x0008c4                  __U3RXInterrupt
+                  0x0008e6                  __U4RXInterrupt
+                  0x000908                  __U1TXInterrupt
+                  0x000942                  __U2TXInterrupt
+                  0x00097c                  __U3TXInterrupt
+                  0x0009b6                  __U4TXInterrupt
+                  0x0009f0                  __SPI1RXInterrupt
                   0x001000                  _FlashBuffer
                   0x001800                  _FlashEEClearPage
                   0x00187a                  _FlashEEReadCell
@@ -192,26 +192,26 @@ External Symbols in Program Memory (by name):
                   0x00057c                  _RXUART3
                   0x000594                  _RXUART4
                   0x000304                  __DefaultInterrupt
-                  0x0009d8                  __SPI1RXInterrupt
-                  0x000868                  __U1RXInterrupt
-                  0x0008f0                  __U1TXInterrupt
-                  0x00088a                  __U2RXInterrupt
-                  0x00092a                  __U2TXInterrupt
-                  0x0008ac                  __U3RXInterrupt
-                  0x000964                  __U3TXInterrupt
-                  0x0008ce                  __U4RXInterrupt
-                  0x00099e                  __U4TXInterrupt
+                  0x0009f0                  __SPI1RXInterrupt
+                  0x000880                  __U1RXInterrupt
+                  0x000908                  __U1TXInterrupt
+                  0x0008a2                  __U2RXInterrupt
+                  0x000942                  __U2TXInterrupt
+                  0x0008c4                  __U3RXInterrupt
+                  0x00097c                  __U3TXInterrupt
+                  0x0008e6                  __U4RXInterrupt
+                  0x0009b6                  __U4TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_da
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
                   0x0005ac                  _changeBaud
-                  0x000704                  _errState
+                  0x00071c                  _errState
                   0x00036c                  _getCB
-                  0x0006da                  _initPWM
-                  0x00067a                  _initSPISlave
+                  0x0006f2                  _initPWM
+                  0x000692                  _initSPISlave
                   0x000464                  _initUarts
-                  0x00076c                  _main
+                  0x000784                  _main
                   0x0003ee                  _putCB
                   0x00030a                  _sizeCB
 
@@ -295,21 +295,21 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3d08
+.debug_info       0x000000       0x3d09
  *(.debug_info)
- .debug_info      0x000000       0x36e4 build/default/production/_ext/1472/Firmware.o
- .debug_info      0x0036e4        0x624 build/default/production/_ext/1472/FlashEE.o
+ .debug_info      0x000000       0x36e5 build/default/production/_ext/1472/Firmware.o
+ .debug_info      0x0036e5        0x624 build/default/production/_ext/1472/FlashEE.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x393
+.debug_abbrev     0x000000        0x3a8
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x21f build/default/production/_ext/1472/Firmware.o
- .debug_abbrev    0x00021f        0x174 build/default/production/_ext/1472/FlashEE.o
+ .debug_abbrev    0x000000        0x234 build/default/production/_ext/1472/Firmware.o
+ .debug_abbrev    0x000234        0x174 build/default/production/_ext/1472/FlashEE.o
 
-.debug_line       0x000000        0x3ca
+.debug_line       0x000000        0x3ce
  *(.debug_line)
- .debug_line      0x000000        0x244 build/default/production/_ext/1472/Firmware.o
- .debug_line      0x000244        0x186 build/default/production/_ext/1472/FlashEE.o
+ .debug_line      0x000000        0x248 build/default/production/_ext/1472/Firmware.o
+ .debug_line      0x000248        0x186 build/default/production/_ext/1472/FlashEE.o
 
 .debug_frame      0x000000        0x4d0
  *(.debug_frame)
@@ -1703,8 +1703,8 @@ __c30_signature
  .ivt._SPI1RXInterrupt
                   0x000088          0x2 build/default/production/_ext/1472/Firmware.o
 
-.text             0x00030a        0x844
- .text            0x00030a        0x844 build/default/production/_ext/1472/Firmware.o
+.text             0x00030a        0x85c
+ .text            0x00030a        0x85c build/default/production/_ext/1472/Firmware.o
                   0x00030a                  _sizeCB
                   0x00036c                  _getCB
                   0x0003ee                  _putCB
@@ -1714,19 +1714,19 @@ __c30_signature
                   0x00057c                  _RXUART3
                   0x000594                  _RXUART4
                   0x0005ac                  _changeBaud
-                  0x00067a                  _initSPISlave
-                  0x0006da                  _initPWM
-                  0x000704                  _errState
-                  0x00076c                  _main
-                  0x000868                  __U1RXInterrupt
-                  0x00088a                  __U2RXInterrupt
-                  0x0008ac                  __U3RXInterrupt
-                  0x0008ce                  __U4RXInterrupt
-                  0x0008f0                  __U1TXInterrupt
-                  0x00092a                  __U2TXInterrupt
-                  0x000964                  __U3TXInterrupt
-                  0x00099e                  __U4TXInterrupt
-                  0x0009d8                  __SPI1RXInterrupt
+                  0x000692                  _initSPISlave
+                  0x0006f2                  _initPWM
+                  0x00071c                  _errState
+                  0x000784                  _main
+                  0x000880                  __U1RXInterrupt
+                  0x0008a2                  __U2RXInterrupt
+                  0x0008c4                  __U3RXInterrupt
+                  0x0008e6                  __U4RXInterrupt
+                  0x000908                  __U1TXInterrupt
+                  0x000942                  __U2TXInterrupt
+                  0x00097c                  __U3TXInterrupt
+                  0x0009b6                  __U4TXInterrupt
+                  0x0009f0                  __SPI1RXInterrupt
 
 .prog             0x001000        0x800
  .prog            0x001000        0x800 build/default/production/_ext/1472/FlashEE.o
@@ -1744,5 +1744,5 @@ __c30_signature
                   0x001b52                  _FlashEEConsolidatePage
                   0x001bdc                  _FlashEEInitialise
 
-.dinit            0x000b4e         0x14
- .dinit           0x000b4e         0x14 data_init
+.dinit            0x000b66         0x14
+ .dinit           0x000b66         0x14 data_init

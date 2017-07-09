@@ -153,8 +153,10 @@ unsigned char putCB(unsigned char buffer, unsigned char value)
 #define RT_HARD_BAUD_4800	(((CLK_SPEED / 4800) - 8) / 32)
 #define RT_HARD_BAUD_9600	(((CLK_SPEED / 9600) - 8) / 32)
 #define RT_HARD_BAUD_19200	(((CLK_SPEED / 19200) - 8) / 32)
+#define RT_HARD_BAUD_31250	(((CLK_SPEED / 31250) - 8) / 32)
 #define RT_HARD_BAUD_38400	(((CLK_SPEED / 38400) - 8) / 32)
 #define RT_HARD_BAUD_57600	(((CLK_SPEED / 57600) - 8) / 32)
+#define RT_HARD_BAUD_62500	(((CLK_SPEED / 62500) - 8) / 32)
 #define RT_HARD_BAUD_115200	(((CLK_SPEED / 115200) - 8) / 32)
 #define TXUART1(data)	U1TXREG = data;
 #define TXUART2(data)	U2TXREG = data;
@@ -265,7 +267,7 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 
 	if (UART >= 4)
 		return;
-	if (BAUD > 7)
+	if (BAUD > 9)
 		return;
 
 	if (BAUD == 0)
@@ -299,6 +301,14 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 	else if (BAUD == 7)
 	{
 		baudrate = RT_HARD_BAUD_115200;
+	}
+	else if (BAUD == 8)
+	{
+		baudrate = RT_HARD_BAUD_31250;
+	}
+	else if (BAUD == 9)
+	{
+		baudrate = RT_HARD_BAUD_62500;
 	}
 	else
 	{
