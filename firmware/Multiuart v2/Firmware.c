@@ -170,23 +170,21 @@ void initUarts()
 {
     unsigned int EEbaud[4];
     unsigned char idx = 0;
-    
+
     TRISB &= 0x0FFF;                            //UART TX pins output
-    
-    while (idx < 4)                             //Read Baud Rates From ROM       
+
+    while (idx < 4)                             //Read Baud Rates From ROM
     {
-        //EEbaud[idx] = FlashEERead(idx);   
-        EEbaud[idx] = RT_HARD_BAUD_9600;        //Flash Write routine currently has a bug on this device! Workaround
-        
+        EEbaud[idx] = FlashEERead(idx);         //Read last assigned baud rate
+
         if ((EEbaud[idx] > RT_HARD_BAUD_1200) || (EEbaud[idx] < RT_HARD_BAUD_115200))              //Unprogrammed location?
         {
-            EEbaud[idx] = RT_HARD_BAUD_9600;            //Default to 9600
-            //FlashEEWrite(idx, RT_HARD_BAUD_9600);     //Write baud to flash
+            EEbaud[idx] = RT_HARD_BAUD_9600;    //Default to 9600
+            FlashEEWrite(idx, EEbaud[idx]);     //Write baud to flash
         }
         idx++;
     }
-    
-    
+
 	//Channel 1
 	RT_UART_1_TX_RPOR = 3;
 	RPINR18bits.U1RXR = RT_UART_1_RX_RP;
@@ -197,7 +195,7 @@ void initUarts()
 	U1STAbits.UTXEN = 1;
 	IEC0bits.U1RXIE = 1;						// turn on RX interrupt
     IEC0bits.U1TXIE = 1;						// turn on TX interrupt
-    
+
 	//Channel 2
 	RT_UART_2_TX_RPOR = 5;
 	RPINR19bits.U2RXR = RT_UART_2_RX_RP;
@@ -208,7 +206,7 @@ void initUarts()
 	U2STAbits.UTXEN = 1;
 	IEC1bits.U2RXIE = 1;						// turn on RX interrupt
     IEC1bits.U2TXIE = 1;						// turn on TX interrupt
-    
+
 	//Channel 3
 	RT_UART_3_TX_RPOR = 19;
 	RPINR17bits.U3RXR = RT_UART_3_RX_RP;
@@ -219,7 +217,7 @@ void initUarts()
 	U3STAbits.UTXEN = 1;
 	IEC5bits.U3RXIE = 1;						// turn on RX interrupt
     IEC5bits.U3TXIE = 1;						// turn on TX interrupt
-    
+
 	//Channel 4
 	RT_UART_4_TX_RPOR = 21;
 	RPINR27bits.U4RXR = RT_UART_4_RX_RP;
@@ -320,36 +318,36 @@ void changeBaud (unsigned char UART, unsigned char BAUD)
 		U1MODEbits.UARTEN = 0;         				// turn off serial interface
 		U1STAbits.UTXEN = 0;
 		U1BRG = baudrate; 							// Set the baud rate
-        //FlashEEWrite(0, baudrate);
 		U1MODEbits.UARTEN = 1;         				// turn on serial interface
 		U1STAbits.UTXEN = 1;
+        FlashEEWrite(0, baudrate);                  // Save new baud rate
 	}
 	else if (UART == 1)
 	{
 		U2MODEbits.UARTEN = 0;         				// turn off serial interface
 		U2STAbits.UTXEN = 0;
 		U2BRG = baudrate;   						// Set the baud rate
-        //FlashEEWrite(1, baudrate);
 		U2MODEbits.UARTEN = 1;         				// turn on serial interface
 		U2STAbits.UTXEN = 1;
+        FlashEEWrite(1, baudrate);                  // Save new baud rate
 	}
 	else if (UART == 2)
 	{
 		U3MODEbits.UARTEN = 0;         				// turn off serial interface
 		U3STAbits.UTXEN = 0;
 		U3BRG = baudrate;   						// Set the baud rate
-        //FlashEEWrite(2, baudrate);
 		U3MODEbits.UARTEN = 1;         				// turn on serial interface
 		U3STAbits.UTXEN = 1;
+        FlashEEWrite(2, baudrate);                  // Save new baud rate
 	}
 	else if (UART == 3)
 	{
 		U4MODEbits.UARTEN = 0;         				// turn off serial interface
 		U4STAbits.UTXEN = 0;
 		U4BRG = baudrate;   						// Set the baud rate
-        //FlashEEWrite(3, baudrate);
 		U4MODEbits.UARTEN = 1;         				// turn on serial interface
 		U4STAbits.UTXEN = 1;
+        FlashEEWrite(3, baudrate);                  // Save new baud rate
 	}
 }
 
@@ -369,23 +367,23 @@ void initSPISlave()
 	//CLK is input pin
 	//SS in an input pin
     TRISB &= 0xFDFF;
-   
+
     SPI1CON1Lbits.SPIEN = 0;        //Ensure SPI is disabled
 
 	RPINR20bits.SCK1R = RT_SPI_1_CLK_RP;		//SPI Clock Input
     RPINR20bits.SDI1R = RT_SPI_1_SDI_RP;        //SPI Data Input
 	RPINR21bits.SS1R = RT_SPI_1_SS_RP;			//SPI SS Input
     RT_SPI_1_SDO_RPOR = 7;                      //SPI Data Output
-    
+
 	SPI1BUFL = 0;                   //Clear the SPIxBUF Register
     SPI1BUFH = 0;
-        
+
 	IFS3bits.SPI1RXIF = 0;          //Clear the SPIxIF bit
 	IEC3bits.SPI1RXIE = 1;          //Enable SPI Slave interrupt
-	IPC14bits.SPI1RXIP = 7;         //Set the interrupt priority - Highest
-    
+	IPC14bits.SPI1RXIP = 5;         //Set the interrupt priority - High but don't interrupt flash op
+
 	SPI1CON1L = 0x0180;             //Slave mode using SS pin
-	SPI1CON1H = 0x3000;
+	SPI1CON1H = 0x0000;             //Tx/Rx Overflows Treated as Errors -  Was 0x3000 - Tx/Rx Overflows Ignored
     SPI1CON2L = 0x0000;             //8-bit Data Mode
     SPI1IMSKL = 0x0001;             //Trigger Interrupt on Rx Buffer Full Event
     SPI1STATL = 0x0008;
@@ -413,10 +411,11 @@ void initPWM ()
 
 void errState (unsigned char err)
 {
-    /*
+    
     //Show the error
     unsigned char num = 0;
-    while (1)
+    unsigned char cnt = 2;
+    while (cnt--)
     {
         num = 0;
         while (num < err)
@@ -430,8 +429,8 @@ void errState (unsigned char err)
         OC1RS = 0;
         delay_s(2);
     }
-    */
     
+
     switch (err)
     {
         case 1:
@@ -499,9 +498,9 @@ int main (void)
     */
 
 	initPWM();
-    
-    /*  
-    //Test PWM  
+
+    /*
+    //Test PWM
     while (1)
     {
         if (OC1RS-- == 0)
@@ -509,8 +508,7 @@ int main (void)
         delay_ms(10);
     }
     */
-    
-    FlashEEInitialise();   
+
     initUarts();
 	initSPISlave();
 
@@ -546,7 +544,7 @@ int main (void)
             TXUART4(getCB(7));
         }
 
-        
+
         //Check for errors and clear them
         if(U1STA & 0x000E)                  //Check for UART1 related Errors
         {
@@ -556,7 +554,7 @@ int main (void)
         if(U2STA & 0x000E)                  //Check for UART2 related Errors
         {
             dummy = U2RXREG;     	 	//Clear Frame Error
-            errState(2);                //Restart UART  
+            errState(2);                //Restart UART
         }
         if(U3STA & 0x000E)                  //Check for UART3 related Errors
         {
@@ -573,12 +571,13 @@ int main (void)
             errState(5);
         }
     }
-        
+
     return 1;           //We should never get here!
 }
 
 
 //No Auto PSV - Ensure interrupt latency is at a minimum
+void __attribute__((interrupt, no_auto_psv)) _SPI1RXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U2RXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U3RXInterrupt(void);
@@ -587,7 +586,7 @@ void __attribute__((interrupt, no_auto_psv)) _U1TXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U2TXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U3TXInterrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _U4TXInterrupt(void);
-void __attribute__((interrupt, no_auto_psv)) _SPI1RXInterrupt(void);
+
 
 
 //UART Interrupts
@@ -708,90 +707,97 @@ void _ISR _SPI1RXInterrupt(void)
 
     OC1RS = 200;                                //LED PWM bright
 
-    switch (fsmState)
+    if (fsmState == 0)      //New Command
     {
-        case 0:
-            fsmCommand = din & CMD_MASK;
-            fsmBuffer = din & CHN_MASK;
+        fsmCommand = din & CMD_MASK;
+        fsmBuffer = din & CHN_MASK;
 
-            switch (fsmCommand)
-            {
-                case CMD_CheckRX:
-                    fsmState = 7;						//Allow byte to be read before returning to mode 0
-                    size = sizeCB(fsmBuffer);
-                    if (size > 255)
-                       dout = 255;
-                    else
-                       dout = size;
-                    break;
-                case CMD_CheckTX:
-                    fsmState = 7;						//Allow byte to be read before returning to mode 0
-                    size = sizeCB(fsmBuffer + 4);
-                    if (size > 255)
-                        dout = 255;
-                    else
-                        dout = size;
-                    break;
-                case CMD_GetRX:
-                    fsmState = 1;
-                    break;
-                case CMD_PutTX:
-                    fsmState = 2;
-                    break;
-                case CMD_SetBaud:
-                    fsmState = 6;
-                    break;
-                default:
-                    fsmState = 0;
-                    dout = 0xFF;
-                    break;
-            }
-            break;
-        case 1:     //CMD_GetRX Length
-            fsmCount = din;
-            dout = getCB(fsmBuffer);
-            fsmIdx = 1;
-            if (fsmIdx == fsmCount)         //1 Byte Only?
-            {
-                fsmState = 7;				//Allow last byte to be read before returning to mode 0
-            }
+        if (fsmCommand == CMD_CheckRX)
+        {
+            fsmState = 7;						//Allow byte to be read before returning to mode 0
+            size = sizeCB(fsmBuffer);
+            if (size > 255)
+               dout = 255;
             else
-                fsmState = 4;               //Else Goto multi byte receive state
-            break;
-        case 2:     //CMD_PutTX Length
-            fsmCount = din;
-            fsmIdx = 0;
-            fsmState = 5;                   //Goto multi byte transmit state
-            break;
-        case 4:     //CMD_GetRX Data
-            if (fsmIdx < fsmCount)
-            {
-                dout = getCB(fsmBuffer);
-                fsmIdx++;
-            }
-            if (fsmIdx == fsmCount)
-            {
-                fsmState = 7;				//Allow last byte to be read before returning to mode 0
-            }
-            break;
-        case 5:     //CMD_PutTX Data
-            if (fsmIdx < fsmCount)
-            {
-                putCB(fsmBuffer + 4, din);
-                fsmIdx++;
-            }
-            if (fsmIdx == fsmCount)         //Start TX if stopped
-            {
-                fsmState = 0;
-            }
-            break;
-        case 6:
-            changeBaud (fsmBuffer, din);
-            fsmState = 0;                   //Allow last byte to be read before returning to mode 0
-            break;
-        default:
+               dout = size;
+        }
+        else if (fsmCommand == CMD_CheckTX)
+        {
+            fsmState = 7;						//Allow byte to be read before returning to mode 0
+            size = sizeCB(fsmBuffer + 4);
+            if (size > 255)
+                dout = 255;
+            else
+                dout = size;
+        }
+        else if (fsmCommand == CMD_GetRX)
+        {
+            fsmState = 1;
+        }
+        else if (fsmCommand == CMD_PutTX)
+        {
+            fsmState = 2;
+        }
+        else if (fsmCommand == CMD_SetBaud)
+        {
+            fsmState = 6;
+        }
+        else
+        {
             fsmState = 0;
-            break;
+            dout = 0xFF;
+        }
+    }
+    else if (fsmState == 1)     //CMD_GetRX Length
+    {
+        fsmCount = din;
+        dout = getCB(fsmBuffer);
+        fsmIdx = 1;
+        if (fsmIdx == fsmCount)         //1 Byte Only?
+        {
+            fsmState = 7;				//Allow last byte to be read before returning to mode 0
+        }
+        else
+            fsmState = 4;               //Else Goto multi byte receive state
+    }
+    else if (fsmState == 2)     //CMD_PutTX Length
+    {
+        fsmCount = din;
+        fsmIdx = 0;
+        fsmState = 5;                   //Goto multi byte transmit state
+    }
+    else if (fsmState == 4)     //CMD_GetRX Data
+    {
+        if (fsmIdx < fsmCount)
+        {
+            dout = getCB(fsmBuffer);
+            fsmIdx++;
+        }
+        if (fsmIdx == fsmCount)
+        {
+            fsmState = 7;				//Allow last byte to be read before returning to mode 0
+        }
+    }
+    else if (fsmState == 5)     //CMD_PutTX Data
+    {
+        if (fsmIdx < fsmCount)
+        {
+            putCB(fsmBuffer + 4, din);
+            fsmIdx++;
+        }
+        if (fsmIdx == fsmCount)         //Start TX if stopped
+        {
+            fsmState = 0;
+        }
+    }
+    else if (fsmState == 6)
+    {
+        changeBaud (fsmBuffer, din);
+        fsmState = 0;                   //Allow last byte to be read before returning to mode 0
+    }
+    else
+    {
+        fsmState = 0;
     }
 
 	SPI1BUFL = dout;						// Assign output value

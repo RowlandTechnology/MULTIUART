@@ -264,6 +264,9 @@ void MULTIUART::SetBaud(char UART, char BAUD)
 
 			delayMicroseconds(50);
 		}
+
+		delay(20);                // waits for 20ms - time for flash erase and write
+
 	}
 }
 
